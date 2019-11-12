@@ -23,7 +23,7 @@ export default {
     },
     fields: {
       title: 'Title',
-      content: 'Content',
+      desc: 'Content',
     },
     error: {
       required: 'This field is required',

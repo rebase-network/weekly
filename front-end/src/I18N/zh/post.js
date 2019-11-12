@@ -23,7 +23,7 @@ export default {
     },
     fields: {
       title: '标题',
-      content: '内容',
+      desc: '内容',
     },
     error: {
       required: '必填项',

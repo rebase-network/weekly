@@ -85,17 +85,17 @@ class C extends BaseComponent {
       <Container>
         <Form onSubmit={this.handleSubmit}>
           <FormItem
-            label={`${I18N.get('post.form.fields.title')}*`}
-            labelCol={{span: 2}}
-            wrapperCol={{span: 18}}
+            label={`${I18N.get('post.form.fields.title')} *`}
+            // labelCol={{span: 23}}
+            // wrapperCol={{span: 18}}
             colon={false}
             >
             {this.getTitleInput()}
           </FormItem>
           <FormItem
-            label={`${I18N.get('post.form.fields.desc')}*`}
-            labelCol={{span: 2}}
-            wrapperCol={{span: 18}}
+            label={`${I18N.get('post.form.fields.desc')} *`}
+            // labelCol={{span: 2}}
+            // wrapperCol={{span: 18}}
             colon={false}
           >
             {this.getTextarea('desc')}

@@ -1,7 +1,7 @@
 import Base from './Base'
 import * as _ from 'lodash'
 import { constant } from '../constant'
-import { validate, mail, user as userUtil, permissions, logger } from '../utility'
+import { validate, mail, user as userUtil, logger } from '../utility'
 
 const BASE_FIELDS = ['title', 'type', 'abstract', 'goal', 'motivation', 'relevance', 'budget', 'plan']
 
@@ -90,7 +90,7 @@ export default class extends Base {
       throw 'Current document does not exist'
     }
 
-    if (!userId.equals(_.get(currDoc, 'createdBy')) && !permissions.isAdmin(_.get(this.currentUser, 'role'))) {
+    if (!userId.equals(_.get(currDoc, 'createdBy'))) {
       throw 'Only owner can edit suggestion'
     }
 
@@ -130,11 +130,11 @@ export default class extends Base {
           EMAIL: 'EMAIL',
           NAME: 'NAME'
         }
-        
+
         if (filter === SEARCH_FILTERS.NUMBER) {
           query.$or = [{ displayId: parseInt(search) || 0 }]
         }
-            
+
         if (filter === SEARCH_FILTERS.TITLE) {
           query.$or = [
             { title: { $regex: search, $options: 'i' } }
@@ -531,7 +531,7 @@ export default class extends Base {
       body,
       recVariables
     }
- 
+
     return mail.send(mailObj)
   }
 

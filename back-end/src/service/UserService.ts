@@ -4,8 +4,7 @@ import * as _ from 'lodash'
 import {constant} from '../constant'
 import {geo} from '../utility/geo'
 import * as uuid from 'uuid'
-import { validate, utilCrypto, mail, permissions } from '../utility'
-import CommunityService from './CommunityService'
+import { validate, utilCrypto, mail } from '../utility'
 
 const selectFields = '-salt -password -elaBudget -elaOwed -votePower -resetToken'
 const strictSelectFields = selectFields + ' -email -profile.walletAddress'
@@ -78,7 +77,6 @@ export default class extends Base {
 
         const newUser = await db_user.save(doc)
 
-        await this.linkCountryCommunity(newUser)
         this.sendConfirmation(doc)
 
         return newUser
@@ -114,11 +112,10 @@ export default class extends Base {
         const { userId } = param
         const db_user = this.getDBModel('User')
         const userRole = _.get(this.currentUser, 'role')
-        const isUserAdmin = permissions.isAdmin(userRole)
         const isSelf = _.get(this.currentUser, '_id') === userId
-        let fields = (isUserAdmin || isSelf) ? selectFields : strictSelectFields
+        let fields = isSelf ? selectFields : strictSelectFields
 
-        if (param.admin && !isUserAdmin && !isSelf) {
+        if (param.admin && !isSelf) {
             throw 'Access Denied'
         }
 
@@ -161,11 +158,6 @@ export default class extends Base {
       const { userId, role } = param
       const db_user = this.getDBModel('User')
       const userRole = _.get(this.currentUser, 'role')
-      const isUserAdmin = permissions.isAdmin(userRole)
-
-      if (!isUserAdmin) {
-          throw 'Access Denied'
-      }
 
       if(Object.keys(constant.USER_ROLE).indexOf(role) === -1){
           throw 'invalid role'
@@ -180,10 +172,9 @@ export default class extends Base {
         let user = await db_user.findById(userId)
         const isSelf = _.get(this.currentUser, '_id', '').toString() === userId
         const userRole = _.get(this.currentUser, 'role')
-        const isUserAdmin = permissions.isAdmin(userRole)
-        const canUpdate = isUserAdmin || isSelf
+        const canUpdate = isSelf
         let countryChanged = false
-        let fields = (isUserAdmin || isSelf) ? selectFields : strictSelectFields
+        let fields = isSelf ? selectFields : strictSelectFields
 
         if (!canUpdate) {
             throw 'Access Denied'
@@ -239,12 +230,6 @@ export default class extends Base {
 
         user = db_user.getDBInstance().findOne({_id: userId}).select(fields)
             .populate('circles')
-
-        // if we change the country, we add the new country as a community if not already
-        // keep the old one too - TODO: think through this logic, maybe we only keep the old one if the new one already exists
-        if (countryChanged) {
-            await this.linkCountryCommunity(user)
-        }
 
         return user
     }
@@ -359,14 +344,13 @@ export default class extends Base {
         const {oldPassword, password} = param
         const username = param.username.toLowerCase()
         const userRole = _.get(this.currentUser, 'role')
-        const isUserAdmin = permissions.isAdmin(userRole)
         const isSelf = _.get(this.currentUser, 'username') === username
 
         this.validate_password(oldPassword)
         this.validate_password(password)
         this.validate_username(username)
 
-        if (!isUserAdmin && !isSelf) {
+        if (!isSelf) {
             throw 'Access Denied'
         }
 
@@ -601,38 +585,6 @@ export default class extends Base {
         })
 
         return true
-    }
-
-    private async linkCountryCommunity(user) {
-        const db_community = this.getDBModel('Community')
-        const communityService = this.getService(CommunityService)
-
-        if (!user.profile || _.isEmpty(user.profile.country)) {
-            return
-        }
-
-        // 1st check if the country already exists
-        let countryCommunity = await db_community.findOne({
-            type: constant.COMMUNITY_TYPE.COUNTRY,
-            geolocation: user.profile.country
-        })
-
-        if (!countryCommunity) {
-            // create the country then attach
-            countryCommunity = await communityService.create({
-                name: geo.geolocationMap[user.profile.country],
-                type: constant.COMMUNITY_TYPE.COUNTRY,
-                geolocation: user.profile.country,
-                parentCommunityId: undefined
-            })
-
-        }
-
-        // now we should always have the community to attach it
-        await communityService.addMember({
-            userId: user._id,
-            communityId: countryCommunity._id
-        })
     }
 
     public async checkEmail(param) {

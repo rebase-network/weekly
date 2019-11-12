@@ -1,6 +1,5 @@
 import * as mongoose from 'mongoose'
 import User from './User'
-import Task from './Task'
 import Suggestion from './Suggestion'
 
 import { utilCrypto } from '../utility'
@@ -33,7 +32,6 @@ export default class {
     })
 
     this.initDB(db)
-    await this.initTest()
 
     await this.prepareRecord()
 
@@ -61,20 +59,8 @@ export default class {
     mongoose.connection.close()
   }
 
-  private async initTest() {
-    const u = await this.db.Test.find({})
-    if (u.length < 1) {
-      const rs = await this.db.Test.save({
-        name: 'test',
-        age: 100,
-        time: Date.now()
-      })
-    }
-  }
-
   private initDB(db) {
     this.db.User = new User(db)
-    this.db.Task = new Task(db)
     this.db.Suggestion = new Suggestion(db)
   }
 

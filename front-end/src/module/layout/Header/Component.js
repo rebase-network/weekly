@@ -9,11 +9,10 @@ import { USER_ROLE, USER_LANGUAGE } from '@/constant'
 import Flag from 'react-flags'
 import Data from '@/config/data'
 import UserEditForm from '@/module/form/UserEditForm/Container'
-import Flyout from './Flyout'
+
+import { StyledMenu } from './style'
 
 const { Header } = Layout
-
-const { location } = window
 
 const Hamburger = () => (
   <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -72,40 +71,40 @@ export default class extends BaseComponent {
     const hasAdminAccess = [USER_ROLE.ADMIN, USER_ROLE.COUNCIL].includes(this.props.role)
 
     return (
-      <Menu onClick={this.clickItem.bind(this)}>
+      <StyledMenu onClick={this.clickItem.bind(this)}>
         {isLogin
           ? (
-            <Menu.Item key="profile/info">
-              {I18N.get('0200')}
+            <Menu.Item key="profile">
+              {I18N.get('header.profile')}
             </Menu.Item>
           )
           : (
             <Menu.Item key="login">
-              {I18N.get('0201')}
+              {I18N.get('login.title')}
             </Menu.Item>
           )
         }
         {!isLogin
           && (
             <Menu.Item key="register">
-              {I18N.get('0202')}
+              {I18N.get('register.title')}
             </Menu.Item>
           )
         }
         {isLogin
           && (
             <Menu.Item key="logout">
-              {I18N.get('0204')}
+              {I18N.get('header.logout')}
             </Menu.Item>
           )
         }
-      </Menu>
+      </StyledMenu>
     )
   }
 
   buildLanguageDropdown() {
     const menu = (
-      <Menu onClick={this.clickItem.bind(this)} className="language-menu">
+      <StyledMenu onClick={this.clickItem.bind(this)} className="language-menu">
         <Menu.Item key="en">
           <div>
             <Flag
@@ -132,7 +131,7 @@ export default class extends BaseComponent {
             <span className="language-cn">简体中文</span>
           </div>
         </Menu.Item>
-      </Menu>
+      </StyledMenu>
     )
 
     return (
@@ -152,49 +151,53 @@ export default class extends BaseComponent {
   }
 
   getSelectedKeys() {
-    return _.map(['profile', 'login', 'post'], key => (((this.props.pathname || '').indexOf(`/${key}`) === 0) ? key : ''))
+    return _.map(['profile', 'login', 'posts/create'], key => (((this.props.pathname || '').indexOf(`/${key}`) === 0) ? key : ''))
   }
 
   ord_render() {
     return (
-      <Header className="c_Header">
-        <Menu
-          onClick={this.clickItem.bind(this)}
-          className="c_Header_Menu pull-left"
+      <Header className="c-header">
+        <StyledMenu
+          theme="dark"
+          onClick={this.clickItem}
+          className="c-header_Menu pull-left"
           selectedKeys={this.getSelectedKeys()}
           mode="horizontal"
         >
           <Menu.Item className="c_MenuItem logo" key="landing">
-            {/* <MediaQuery minWidth={MIN_WIDTH_PC}>
-              <img src="/assets/images/arrow-h.png" alt="Cyber Republic" />
+            <MediaQuery minWidth={MIN_WIDTH_PC}>
+              <img src="/assets/images/arrow-h.png" alt="Weekly" />
             </MediaQuery>
             <MediaQuery maxWidth={MAX_WIDTH_MOBILE}>
-              <img src="/assets/images/arrow-h.png" alt="Cyber Republic"/>
-            </MediaQuery> */}
+              <img src="/assets/images/arrow-h.png" alt="Weekly"/>
+            </MediaQuery>
             {/* <div className="alpha-tag dsk">ALPHA</div> */}
           </Menu.Item>
-          <Menu.Item key="post">
-            {I18N.get('navigation.profile')}
+          <Menu.Item key="posts/create">
+            {I18N.get('post.title.add')}
           </Menu.Item>
-        </Menu>
-        <Menu
-          onClick={this.clickItem.bind(this)}
-          className="c_Header_Menu pull-right"
+          <Menu.Item key="profile">
+            {I18N.get('header.profile')}
+          </Menu.Item>
+        </StyledMenu>
+        <StyledMenu
+          onClick={this.clickItem}
+          className="c-header_Menu pull-right"
           selectedKeys={this.getSelectedKeys()}
           mode="horizontal"
         >
           {this.props.isLogin
             ? (
               <Menu.Item className="c_MenuItem link" key="profile">
-                {I18N.get('navigation.profile')}
+                {I18N.get('header.profile')}
               </Menu.Item>
             ) : (
               <Menu.Item className="c_MenuItem link" key="login">
-                {I18N.get('0201')}
+                {I18N.get('login.title')}
               </Menu.Item>
             )
         }
-        </Menu>
+        </StyledMenu>
         <div className="clearfix" />
         {this.renderProfileToast()}
         {this.renderCompleteProfileModal()}
@@ -263,17 +266,11 @@ export default class extends BaseComponent {
       'login',
       'register',
       'signup',
-      'profile/info',
+      'profile',
+      'posts/create',
     ], key)) {
-      if (key === 'landing') {
-        this.props.history.push('/')
-      } else {
-        this.props.history.push(`/${e.key}`)
-      }
-
-      // below this are exceptions from the list above
+      this.props.history.push(`/${e.key}`)
     } else if (key === 'logout') {
-
       Modal.confirm({
         title: I18N.get('logout.title'),
         content: '',
@@ -286,8 +283,6 @@ export default class extends BaseComponent {
         onCancel() {
         },
       })
-    } else if (key === 'profile') {
-      this.props.history.push('/profile/info')
     } else if (_.includes([
       'en',
       'zh',

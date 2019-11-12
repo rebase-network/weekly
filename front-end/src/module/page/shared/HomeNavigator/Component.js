@@ -31,7 +31,7 @@ export default class extends BaseComponent {
       profileTasks: '/profile/tasks',
       profileTeams: '/profile/teams',
       profileSubmissions: '/profile/submissions',
-      profileInfo: '/profile/info',
+      profileInfo: '/profile',
       profileCommunities: '/profile/communities',
       profilePosts: '/profile/posts',
       profileAdminPosts: '/admin/posts',

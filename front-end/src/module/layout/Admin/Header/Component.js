@@ -65,7 +65,7 @@ export default class extends BaseComponent {
     const isLogin = this.props.isLogin
 
     return (
-      <Header className="c_Header" theme="light">
+      <Header className="c-header" theme="light">
         <Row>
           <Col span={12}>
             {logo_el}

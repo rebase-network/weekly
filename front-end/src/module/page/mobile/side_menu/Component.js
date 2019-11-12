@@ -24,7 +24,7 @@ export default class extends BaseComponent {
       'login',
       'register',
       'signup',
-      'profile/info',
+      'profile',
       'profile/teams',
       'developer',
       'developer/learn',
@@ -160,7 +160,7 @@ export default class extends BaseComponent {
               mode="inline"
             >
               {isLogin && (
-              <Menu.Item key="profile/info">
+              <Menu.Item key="profile">
                 {I18N.get('0104')}
               </Menu.Item>
               )}

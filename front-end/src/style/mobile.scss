@@ -1,5 +1,5 @@
 // hiding certain elements at full size
-.c_Header .c_MenuItem.mobile {
+.c-header .c_MenuItem.mobile {
   display: none;
 }
 
@@ -12,8 +12,8 @@ h2 {
 }
 
 
-.c_Header {
-  .c_Header_Menu {
+.c-header {
+  .c-header_Menu {
     .c_MenuItem {
 
       &.link {

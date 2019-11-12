@@ -70,7 +70,7 @@ export default [
     ********************************************************************************
       */
   {
-    path: '/profile/info',
+    path: '/profile',
     page: ProfileInfoPage,
   },
 

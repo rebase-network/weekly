@@ -1,4 +1,4 @@
-import home from './en/home'
+import header from './en/header'
 import login from './en/login'
 import register from './en/register'
 import forgot from './en/forgot'
@@ -6,7 +6,7 @@ import post from './en/post'
 
 
 const result = {
-  home,
+  header,
   login,
   register,
   forgot,

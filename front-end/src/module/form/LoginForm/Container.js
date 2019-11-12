@@ -29,7 +29,7 @@ export default createContainer(Component, state => ({
             sessionStorage.setItem('loggedIn', '1')
             sessionStorage.setItem('loginRedirect', null)
           } else {
-            this.history.push('/profile/info')
+            this.history.push('/profile')
           }
           return true
         }

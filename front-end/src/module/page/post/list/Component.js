@@ -52,19 +52,6 @@ export default class extends StandardPage {
           {headerNode}
         </div>
         <PostContainer className="p_PostList">
-          <Row
-            type="flex"
-            justify="space-between"
-            align="middle"
-            style={{margin: '24px 0 48px'}}
-          >
-            <Col xs={24} sm={12} style={{textAlign: 'right', paddingTop: 24}}>
-              <Button onClick={this.goCreate} className="btn-create-post">
-                {I18N.get('post.btnText.add')}
-              </Button>
-            </Col>
-          </Row>
-
           <Row gutter={24} style={{marginTop: 32}}>
             <Col span={24}>
               {listNode}
@@ -73,17 +60,6 @@ export default class extends StandardPage {
         </PostContainer>
       </div>
     )
-  }
-
-  goCreate = () => {
-    const { isLogin, history } = this.props
-    if (!isLogin) {
-      // const query = { create: true }
-      // loginRedirectWithQuery({ query })
-      history.push('/login')
-      return
-    }
-    this.props.history.push('/posts/create')
   }
 
   renderHeader() {
@@ -126,14 +102,14 @@ export default class extends StandardPage {
     const title = <ItemTitle to={href}>{data.title}</ItemTitle>
     // const tagsNode = this.renderTagsNode(data)
     return (
-      <div key={data._id} className="item-container">
+      <ItemContainer key={data._id}>
         {/* {metaNode} */}
         {title}
         {/* {tagsNode} */}
         {/* <ShortDesc>
           <MarkdownPreview content={data.desc} />
         </ShortDesc> */}
-      </div>
+      </ItemContainer>
     )
   }
 
@@ -214,6 +190,10 @@ export default class extends StandardPage {
     this.props.history.push(`/posts/${id}`)
   }
 }
+
+const ItemContainer = styled.div`
+  margin-bottom: 22px;
+`
 
 const ItemTitle = styled(Link)`
   font-size: 20px;

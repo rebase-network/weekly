@@ -16,7 +16,7 @@ export default class extends StandardPage {
 
   ord_checkLogin(isLogin) {
     if (isLogin) {
-      this.props.history.replace('/profile/info')
+      this.props.history.replace('/profile')
     }
   }
 }

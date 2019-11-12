@@ -37,6 +37,18 @@ export default class extends StandardPage {
         />
 
         <Container className="c_PostDetail">
+        <MediaQuery maxWidth={LG_WIDTH}>
+            <div>
+              <BackLink
+                link="/"
+                style={{ position: 'relative', left: 0, marginBottom: 15 }}
+              />
+            </div>
+          </MediaQuery>
+          <MediaQuery minWidth={LG_WIDTH + 1}>
+            <BackLink link="/" />
+          </MediaQuery>
+
           <h2 className="komu-a cr-title-with-icon">
             {I18N.get('post.title.add')}
           </h2>

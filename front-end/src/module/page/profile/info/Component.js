@@ -5,7 +5,6 @@ import Footer from '@/module/layout/Footer/Container'
 import Profile from '@/module/profile/Container'
 
 import './style.scss'
-import '../../admin/admin.scss'
 
 import { Col, Row, Icon, Form, Breadcrumb, Button, Dropdown } from 'antd'
 

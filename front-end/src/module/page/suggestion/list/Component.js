@@ -11,7 +11,6 @@ import { loginRedirectWithQuery, logger } from '@/util'
 import StandardPage from '@/module/page/StandardPage'
 import Footer from '@/module/layout/Footer/Container'
 import SuggestionForm from '@/module/form/SuggestionForm/Container'
-import ActionsContainer from '../common/actions/Container'
 import MetaContainer from '../common/meta/Container'
 import TagsContainer from '../common/tags/Container'
 import { SUGGESTION_STATUS, SUGGESTION_TAG_TYPE } from '@/constant'
@@ -110,7 +109,7 @@ export default class extends StandardPage {
             <Col md={24} xl={18} style={{ paddingBottom: 24 }}>{filterNode}</Col>
             <Col md={24} xl={6} style={{ paddingBottom: 24, textAlign: 'right' }}>{sortActionsNode}</Col>
           </Row>
-          
+
           <Row gutter={24} style={{marginTop: 32}}>
             <Col span={24}>
               {listNode}
@@ -261,7 +260,7 @@ export default class extends StandardPage {
         underConsideration
       }
     } = this.props
-    
+
     return (
       <Row type="flex" align="middle">
         <Col xs={24} sm={24} md={2}>
@@ -337,7 +336,6 @@ export default class extends StandardPage {
 
   renderItem = (data) => {
     const href = `/suggestion/${data._id}`
-    const actionsNode = this.renderActionsNode(data, this.refetch)
     const metaNode = this.renderMetaNode(data)
     const title = <ItemTitle to={href}>{data.title}</ItemTitle>
     const tagsNode = this.renderTagsNode(data)
@@ -352,8 +350,6 @@ export default class extends StandardPage {
             return <ItemLinkWrapper key={link}><a target="_blank" href={link}>{link}</a></ItemLinkWrapper>
           }))}
         </ShortDesc>
-
-        {actionsNode}
       </div>
     )
   }
@@ -379,8 +375,6 @@ export default class extends StandardPage {
   renderMetaNode = detail => <MetaContainer data={detail} user={this.props.user} />
 
   renderTagsNode = detail => <TagsContainer data={detail} />
-
-  renderActionsNode = (detail, refetch) => <ActionsContainer data={detail} listRefetch={refetch}/>
 
   onSortByChanged = async (sortBy) => {
     await this.props.onSortByChanged(sortBy)

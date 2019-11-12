@@ -5,7 +5,6 @@ import { api_request, upload_file } from './request'
 import { loginRedirectWithQuery } from './login'
 import * as permissions from './permissions'
 import * as url from './url'
-import * as editor from './editor'
 import * as logger from './logger'
 
 /**
@@ -41,6 +40,5 @@ export {
   loginRedirectWithQuery,
   permissions,
   url,
-  editor,
   logger
 }

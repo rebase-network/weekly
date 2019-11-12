@@ -14,7 +14,7 @@ import Flyout from './Flyout'
 
 const { Header } = Layout
 
-const { analytics, location } = window
+const { location } = window
 
 const Hamburger = () => (
   <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -220,10 +220,10 @@ export default class extends BaseComponent {
         >
             <Menu.Item className="c_MenuItem logo" key="landing">
               <MediaQuery minWidth={MIN_WIDTH_PC}>
-                <img src="/assets/images/logo.svg" alt="Cyber Republic" />
+                <img src="/assets/images/arrow-h.png" alt="Cyber Republic" />
               </MediaQuery>
               <MediaQuery maxWidth={MAX_WIDTH_MOBILE}>
-                <img src="/assets/images/logo-mark.svg" alt="Cyber Republic"/>
+                <img src="/assets/images/arrow-h.png" alt="Cyber Republic"/>
               </MediaQuery>
               {/* <div className="alpha-tag dsk">ALPHA</div> */}
             </Menu.Item>
@@ -417,9 +417,6 @@ export default class extends BaseComponent {
       localStorage.setItem('popup-update', 'force')
       window.location.reload()
     } else if (key === 'forum') {
-      analytics.track('FORUM_CLICKED', {
-        url: location.href,
-      })
       if (!isLogin) {
         this.props.history.push('/login?MSG_CODE=1')
       } else {
@@ -427,10 +424,6 @@ export default class extends BaseComponent {
         window.open(forumLink, '_blank')
       }
     } else if (key === 'logout') {
-      analytics.track('HEADER_CLICKED', {
-        action: 'logout',
-        url: location.href,
-      })
 
       Modal.confirm({
         title: I18N.get('logout.title'),
@@ -439,9 +432,6 @@ export default class extends BaseComponent {
         okType: 'danger',
         cancelText: I18N.get('.no'),
         onOk: () => {
-          analytics.track('LOGOUT', {
-            url: location.href,
-          })
           this.props.logout()
         },
         onCancel() {
@@ -450,10 +440,6 @@ export default class extends BaseComponent {
     } else if (key === 'profile') {
       this.props.history.push('/profile/info')
     } else if (key === 'blog') {
-      analytics.track('BLOG_CLICKED', {
-        url: location.href,
-      })
-
       let linkToBlog = 'https://blog.cyberrepublic.org'
 
       if (I18N.getLang() === USER_LANGUAGE.zh) {
@@ -462,10 +448,6 @@ export default class extends BaseComponent {
 
       window.location.href = linkToBlog
     } else if (key === 'docs') {
-      analytics.track('DOCS_CLICKED', {
-        url: location.href,
-      })
-
       let linkTo = 'https://cyberrepublic.org/docs/#/'
 
       if (I18N.getLang() === USER_LANGUAGE.zh) {
@@ -477,11 +459,6 @@ export default class extends BaseComponent {
       'en',
       'zh',
     ], key)) {
-      analytics.track('LANGUAGE_CHANGED', {
-        language: e.key,
-        url: location.href,
-      })
-
       this.props.changeLanguage(e.key)
     }
   }

@@ -1,7 +1,6 @@
 import { createContainer } from '@/util'
 import Component from './Component'
 import CommentService from '@/service/CommentService'
-import CouncilService from '@/service/CouncilService'
 import { message } from 'antd'
 import _ from 'lodash'
 import { logger } from '@/util'
@@ -23,7 +22,6 @@ export default createContainer(Component, (state) => {
   return props
 }, () => {
   const commentService = new CommentService()
-  const councilService = new CouncilService()
 
   return {
     async postComment(type, reduxType, detailReducer, returnUrl, parentId, comment, headline) {
@@ -34,15 +32,6 @@ export default createContainer(Component, (state) => {
         if (rs) {
           message.success('Your comment has been posted.')
         }
-      } catch (err) {
-        message.error(err.message)
-        logger.error(err)
-      }
-    },
-
-    async listUsers() {
-      try {
-        return await councilService.getCouncilMembers()
       } catch (err) {
         message.error(err.message)
         logger.error(err)

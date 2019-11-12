@@ -1,9 +1,7 @@
 import React from 'react'
 import BaseComponent from '@/model/BaseComponent'
 import {Form, Icon, Input, Button, Checkbox, message, Select, Divider, Collapse} from 'antd'
-import ReCAPTCHA from 'react-google-recaptcha'
 import {
-  RECAPTCHA_KEY,
   MIN_LENGTH_PASSWORD
 } from '@/config/constant'
 import config from '@/config'
@@ -23,24 +21,9 @@ class C extends BaseComponent {
     handleSubmit(e) {
       e.preventDefault()
 
-      // eslint-disable-next-line no-undef
-      analytics.track('REGISTRATION', {
-        action: 'registration submit button clicked',
-        url: location.href
-      })
-
       this.props.form.validateFields(async (err, values) => {
         if (!err) {
           if (this.state.requestedCode) {
-
-            // eslint-disable-next-line no-undef
-            analytics.track('REGISTRATION', {
-              action: 'registration successful',
-              url: location.href,
-              username: this.state.savedValues.username,
-              email: this.state.savedValues.email
-            })
-
             this.props.register(this.state.savedValues.username,
               this.state.savedValues.password, _.omit(this.state.savedValues, ['username', 'password']))
               .then((shouldShowWelcome) => {
@@ -53,15 +36,6 @@ class C extends BaseComponent {
                 }
               })
           } else {
-
-            // eslint-disable-next-line no-undef
-            analytics.track('REGISTRATION', {
-              action: 'sent registration code',
-              url: location.href,
-              username: values.username,
-              email: values.email
-            })
-
             // step 1 - check username, if valid send registration code
             const code = this.generateRegCode()
             this.props.sendRegistrationCode(values.email, code)

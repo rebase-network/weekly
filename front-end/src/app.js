@@ -7,15 +7,11 @@ import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux'
 import store from '@/store'
 import config from '@/config'
-import AutoLinks from 'quill-auto-links'
-import { Quill } from 'react-quill'
 import { api_request, permissions } from './util'
 
 import './boot'
 import './style/index.scss'
 import './style/mobile.scss'
-
-Quill.register('modules/autoLinks', AutoLinks)
 
 const middleware = (render, props) => render
 
@@ -23,12 +19,11 @@ const App = () => (
   <div>
     <Helmet>
       <meta name="cr-env" content={process.env.NODE_ENV} />
-      <meta name="cr-version-number" content={process.env.CR_VERSION ? `${process.env.CR_VERSION}` : 'unknown'} />
+      {/* <meta name="cr-version-number" content={process.env.CR_VERSION ? `${process.env.CR_VERSION}` : 'unknown'} />
       {process.env.NODE_ENV === 'production' && <script defer={true} src="/assets/js/rollbar_prod.js" />}
       {process.env.NODE_ENV === 'staging' && <script defer={true} src="/assets/js/rollbar_staging.js" />}
       {process.env.NODE_ENV === 'production' && <script async={true} src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GA_ID}`} />}
-      {process.env.NODE_ENV === 'production' && <script>{`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${process.env.GA_ID}');`}</script>}
-      {window.location.pathname === '/' && <script defer={true} src="/assets/js/elastos.js" />}
+      {process.env.NODE_ENV === 'production' && <script>{`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${process.env.GA_ID}');`}</script>} */}
       {/*
       <script>{
           (function() {
@@ -98,12 +93,12 @@ if (sessionStorage.getItem('api-token')) {
       const userProfile = data.profile
 
       // eslint-disable-next-line no-undef
-      analytics.identify(data._id, {
-        id: data._id,
-        title: data.role,
-        gender: userProfile.gender,
-        createdAt: data.createdAt,
-      })
+      // analytics.identify(data._id, {
+      //   id: data._id,
+      //   title: data.role,
+      //   gender: userProfile.gender,
+      //   createdAt: data.createdAt,
+      // })
 
       render()
     },

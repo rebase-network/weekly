@@ -17,16 +17,13 @@ import moment from 'moment/moment'
 import Comments from '@/module/common/comments/Container'
 import Footer from '@/module/layout/Footer/Container'
 import BackLink from '@/module/shared/BackLink/Component'
-import Translation from '@/module/common/Translation/Container'
 import SuggestionForm from '@/module/form/SuggestionForm/Container'
 import I18N from '@/I18N'
 import { LG_WIDTH } from '@/config/constant'
 import { CVOTE_STATUS, SUGGESTION_TAG_TYPE } from '@/constant'
 import { convertMarkdownToHtml } from '@/util/markdown-it'
 import { logger } from '@/util'
-import { ReactComponent as CommentIcon } from '@/assets/images/icon-info.svg'
 import StandardPage from '../../StandardPage'
-import ActionsContainer from '../common/actions/Container'
 import MetaContainer from '../common/meta/Container'
 import Meta from '@/module/common/Meta'
 import SocialShareButtons from '@/module/common/SocialShareButtons'
@@ -42,7 +39,6 @@ import {
   BtnGroup,
   StyledButton,
   CouncilComments,
-  IconWrap,
   Item,
   ItemTitle,
   ItemText,
@@ -119,8 +115,6 @@ export default class extends StandardPage {
       )
     }
     const detailNode = this.renderDetail()
-    const translationBtn = this.renderTranslationBtn()
-    const actionsNode = this.renderActionsNode()
     const ownerActionsNode = this.renderOwnerActionsNode()
     const councilActionsNode = this.renderCouncilActionsNode()
     const editForm = this.renderEditForm()
@@ -146,9 +140,7 @@ export default class extends StandardPage {
             </div>
             <div>
               {detailNode}
-              {translationBtn}
               {socialShareButtonsNode}
-              {actionsNode}
               {ownerActionsNode}
               {councilActionsNode}
             </div>
@@ -163,7 +155,6 @@ export default class extends StandardPage {
             <Row gutter={24}>
               <Col span={24}>
                 {detailNode}
-                {translationBtn}
                 {socialShareButtonsNode}
                 {actionsNode}
                 {ownerActionsNode}
@@ -313,9 +304,6 @@ export default class extends StandardPage {
             >
               {I18N.get(`suggestion.tag.type.${type}`)}
               {'  '}
-              <IconWrap>
-                <CommentIcon className="more-info-icon" />
-              </IconWrap>
             </LabelPointer>
             <Modal
               title={I18N.get(`suggestion.tag.type.${type}`)}
@@ -356,33 +344,6 @@ export default class extends StandardPage {
     this.setState({
       needsInfoVisible: false
     })
-  }
-
-  renderTranslationBtn() {
-    const { detail } = this.props
-    const sections = ['abstract', 'goal', 'motivation', 'plan', 'relevance', 'budget']
-    const result = sections.map(section => {
-      return `
-        <h2>${I18N.get(`suggestion.fields.${section}`)}</h2>
-        <p>${convertMarkdownToHtml(detail[section] ? detail[section] : '')}</p>
-      `
-    }).join('')
-    const text = `
-      <h3>${detail.title}</h3>
-      <br />
-      <br />
-      ${result}
-    `
-    return (
-      <div style={{ marginTop: 20 }}>
-        <Translation text={text} />
-      </div>
-    )
-  }
-
-  renderActionsNode() {
-    const { detail } = this.props
-    return <ActionsContainer data={detail} />
   }
 
   onCreated = () => {

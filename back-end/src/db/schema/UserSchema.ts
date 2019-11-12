@@ -1,6 +1,6 @@
 import {Schema} from 'mongoose'
 import {CommentSchema} from './CommentSchema'
-// import {SubscriberSchema} from './SubscriberSchema'
+import {SubscriberSchema} from './SubscriberSchema'
 
 export const Region = {
     country: String,
@@ -84,7 +84,7 @@ export const User = {
     },
     logins: [Date],
     comments: [[CommentSchema]],
-    // subscribers: [SubscriberSchema],
+    subscribers: [SubscriberSchema],
     popupUpdate: {
         type: Boolean,
         default: false

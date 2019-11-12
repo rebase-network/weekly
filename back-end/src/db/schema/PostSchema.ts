@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose'
 import { CommentSchema } from './CommentSchema'
-// import { SubscriberSchema } from './SubscriberSchema'
+import { SubscriberSchema } from './SubscriberSchema'
 import { constant } from '../../constant'
 import * as _ from 'lodash'
 
@@ -127,7 +127,7 @@ export const Post = {
     uppercase: true,
     enum: _.values(constant.POST_ABUSED_STATUS)
   },
-  // subscribers: [SubscriberSchema],
+  subscribers: [SubscriberSchema],
   reference: [
     {
       type: Schema.Types.ObjectId,

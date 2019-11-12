@@ -24,18 +24,6 @@ export default class extends BaseService {
     this.dispatch(this.selfRedux.actions.sortBy_update(sortBy))
   }
 
-  async saveTagsIncluded(tagsIncluded) {
-    this.dispatch(this.selfRedux.actions.tags_included_update(tagsIncluded))
-  }
-
-  async saveReferenceStatus(referenceStatus) {
-    this.dispatch(this.selfRedux.actions.reference_status_update(referenceStatus))
-  }
-
-  async saveEditHistory(editHistory) {
-    this.dispatch(this.selfRedux.actions.edit_history_update(editHistory))
-  }
-
   async loadMore(qry) {
     this.list(qry)
   }
@@ -178,22 +166,6 @@ export default class extends BaseService {
     return result
   }
 
-  async editHistories({ id }) {
-    this.dispatch(this.selfRedux.actions.loading_update(true))
-    const path = `${this.prefixPath}/${id}/editHistories`
-    const res = await api_request({
-      path,
-      method: 'get',
-    })
-    this.dispatch(this.selfRedux.actions.loading_update(false))
-    this.dispatch(this.selfRedux.actions.edit_history_update(res))
-  }
-
-  resetEditHistory() {
-    this.dispatch(this.selfRedux.actions.edit_history_reset())
-  }
-
-
   async like(id) {
     const path = `${this.prefixPath}/${id}/like`
 
@@ -205,81 +177,4 @@ export default class extends BaseService {
     return res
   }
 
-  async dislike(id) {
-    const path = `${this.prefixPath}/${id}/dislike`
-
-    const res = await api_request({
-      path,
-      method: 'post',
-    })
-
-    return res
-  }
-
-  async reportAbuse(id) {
-    const path = `${this.prefixPath}/${id}/reportabuse`
-
-    const res = await api_request({
-      path,
-      method: 'post',
-    })
-
-    return res
-  }
-
-  async abuse(id) {
-    const path = `${this.prefixPath}/${id}/abuse`
-
-    const res = await api_request({
-      path,
-      method: 'post',
-    })
-
-    return res
-  }
-
-  // ADMIN and Author
-  async archive(id) {
-    const path = `${this.prefixPath}/${id}/archive`
-    const res = await api_request({
-      path,
-      method: 'post',
-    })
-    if(res.success) {
-      message.info(I18N.get('post.msg.archived'))
-    }
-    return res
-  }
-
-  // ADMIN ONLY
-  async delete(id) {
-    const path = `${this.prefixPath}/${id}/delete`
-
-    const res = await api_request({
-      path,
-      method: 'post',
-    })
-
-    return res
-  }
-
-  // ADMIN and Council
-  async needDueDiligence(id) {
-    const path = `${this.prefixPath}/${id}/investigation`
-    const res = await api_request({
-      path,
-      method: 'post',
-    })
-    return res
-  }
-
-  // ADMIN and Council
-  async needAdvisory(id) {
-    const path = `${this.prefixPath}/${id}/advisory`
-    const res = await api_request({
-      path,
-      method: 'post',
-    })
-    return res
-  }
 }

@@ -48,5 +48,6 @@ export default {
   },
   btnText: {
     edit: 'Edit',
+    add: 'Add',
   }
 }

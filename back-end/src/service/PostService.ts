@@ -21,10 +21,7 @@ export default class extends Base {
       descUpdatedAt: new Date()
     }
     // save the document
-    const result = await this.model.save(doc)
-    await this.getDBModel('Post_Edit_History').save({ ...param, post: result._id })
-
-    return result
+    return await this.model.save(doc)
   }
 
   public async update(param: any): Promise<Document> {
@@ -45,7 +42,6 @@ export default class extends Base {
     if (update) {
       await Promise.all([
         this.model.update({ _id: id }, { $set: doc }),
-        this.getDBModel('Post_Edit_History').save({ ...doc, post: id })
       ])
     } else {
       await this.model.update({ _id: id }, { $set: doc })
@@ -108,7 +104,7 @@ export default class extends Base {
     const { id: _id, incViewsNum } = param
     if (incViewsNum === 'true') {
       await this.model.findOneAndUpdate({ _id }, {
-        $inc: { viewsNum: 1, activeness: 1 }
+        $inc: { viewsNum: 1 }
       })
     }
     const doc = await this.model.getDBInstance()
@@ -129,10 +125,6 @@ export default class extends Base {
     return doc
   }
 
-  public async editHistories(param: any): Promise<Document[]> {
-    return await this.getDBModel('Post_Edit_History').find({post: param.id})
-  }
-
   // like or unlike
   public async like(param: any): Promise<Document> {
     const { id: _id } = param
@@ -147,137 +139,17 @@ export default class extends Base {
     if (_.findIndex(likes, oid => userId.equals(oid)) !== -1) {
       await this.model.findOneAndUpdate({ _id }, {
         $pull: { likes: userId },
-        $inc: { likesNum: -1, activeness: -1 }
+        $inc: { likesNum: -1 }
       })
     } else {
       // not like yet, will like it
       await this.model.findOneAndUpdate({ _id }, {
         $push: { likes: userId },
-        $inc: { likesNum: 1, activeness: 1 }
+        $inc: { likesNum: 1 }
       })
     }
 
     return this.model.findById(_id)
-  }
-  // dislike <=> undislike
-  // can not both like and dislike
-  public async dislike(param: any): Promise<Document> {
-    const { id: _id } = param
-    const userId = _.get(this.currentUser, '_id')
-    const doc = await this.model.findById(_id)
-    const { likes, dislikes } = doc
-
-    // can not both like and dislike, use ObjectId.equals to compare
-    if (_.findIndex(likes, oid => userId.equals(oid)) !== -1) return doc
-
-    // already liked, will unlike, use ObjectId.equals to compare
-    if (_.findIndex(dislikes, oid => userId.equals(oid)) !== -1) {
-      await this.model.findOneAndUpdate({ _id }, {
-        $pull: { dislikes: userId },
-        $inc: { dislikesNum: -1, activeness: -1 }
-      })
-    } else {
-      // not like yet, will like it
-      await this.model.findOneAndUpdate({ _id }, {
-        $push: { dislikes: userId },
-        $inc: { dislikesNum: 1, activeness: 1 }
-      })
-    }
-
-    return this.model.findById(_id)
-  }
-
-  /**
-   * Council only
-   */
-  private async notifySubscribers(postId: String) {
-    try {
-      const db_user = this.getDBModel('User');
-      const currentUserId = _.get(this.currentUser, '_id')
-      const councilMember = await db_user.findById(currentUserId)
-      const post = await this.model.getDBInstance().findById(postId)
-        .populate('subscribers.user', constant.DB_SELECTED_FIELDS.USER.NAME_EMAIL)
-        .populate('createdBy', constant.DB_SELECTED_FIELDS.USER.NAME_EMAIL)
-
-      // get users: creator and subscribers
-      const toUsers = _.map(post.subscribers, 'user') || []
-      toUsers.push(post.createdBy)
-      const toMails = _.map(toUsers, 'email')
-
-      const subject = 'The post is under consideration of Council.'
-      const body = `
-      <p>Council member ${userUtil.formatUsername(councilMember)} has marked this post ${post.title} as "Under Consideration"</p>
-      <br />
-      <p>Click this link to view more details: <a href="${process.env.SERVER_URL}/post/${post._id}">${process.env.SERVER_URL}/post/${post._id}</a></p>
-      <br /> <br />
-      <p>Thanks</p>
-      <p>Cyber Republic</p>
-    `
-
-      const recVariables = _.zipObject(toMails, _.map(toUsers, (user) => {
-        return {
-          _id: user._id,
-          username: userUtil.formatUsername(user)
-        }
-      }))
-
-      const mailObj = {
-        to: toMails,
-        // toName: ownerToName,
-        subject,
-        body,
-        recVariables,
-      }
-
-      mail.send(mailObj)
-    } catch(error) {
-      logger.error(error)
-    }
-  }
-
-  private async notifyOwner(postId: String, desc: String) {
-    try {
-      const db_user = this.getDBModel('User');
-      const currentUserId = _.get(this.currentUser, '_id')
-      const councilMember = await db_user.findById(currentUserId)
-      const post = await this.model.getDBInstance().findById(postId)
-      .populate('createdBy', constant.DB_SELECTED_FIELDS.USER.NAME_EMAIL)
-
-      // get users: creator and subscribers
-      const toUsers = [post.createdBy]
-      const toMails = _.map(toUsers, 'email')
-
-      const subject = 'Your post needs more info for Council.'
-      const body = `
-        <p>Council member ${userUtil.formatUsername(councilMember)} has marked your post ${post.title} as "Need more information".</p>
-        <br />
-        <p>"${desc}"</p>
-        <br />
-        <p>Click this link to view more details: <a href="${process.env.SERVER_URL}/post/${post._id}">${process.env.SERVER_URL}/post/${post._id}</a></p>
-        <br /> <br />
-        <p>Thanks</p>
-        <p>Cyber Republic</p>
-      `
-
-      const recVariables = _.zipObject(toMails, _.map(toUsers, (user) => {
-        return {
-          _id: user._id,
-          username: userUtil.formatUsername(user)
-        }
-      }))
-
-      const mailObj = {
-        to: toMails,
-        // toName: ownerToName,
-        subject,
-        body,
-        recVariables,
-      }
-
-      mail.send(mailObj)
-    } catch (error) {
-      logger.error(error)
-    }
   }
 
   public async addTag(param: any): Promise<Document> {
@@ -307,10 +179,10 @@ export default class extends Base {
     }
   }
 
-  public async delete(param: any): Promise<Document> {
-    const { id: _id } = param
-    return this.model.findByIdAndDelete(_id)
-  }
+  // public async delete(param: any): Promise<Document> {
+  //   const { id: _id } = param
+  //   return this.model.findByIdAndDelete(_id)
+  // }
 
   /**
    * Utils

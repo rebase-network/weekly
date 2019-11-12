@@ -8,18 +8,14 @@ import { LG_WIDTH } from '@/config/constant'
 import Meta from '@/module/common/Meta'
 import StandardPage from '../../StandardPage'
 
-import { Container, Title } from './style'
-
-const LOCALSTORAGE_DRAFT = 'draft-post';
+import { Container } from './style'
 
 export default class extends StandardPage {
   constructor(props) {
     super(props)
 
-    const draftPost = localStorage.getItem(LOCALSTORAGE_DRAFT);
     this.state = {
       error: null,
-      draftPost: draftPost ? JSON.parse(draftPost) : {}
     }
   }
 
@@ -30,12 +26,7 @@ export default class extends StandardPage {
   onSubmit = (model) => {
     return this.props.createPost(model)
       .then(() => this.historyBack())
-      .then(() => localStorage.removeItem(LOCALSTORAGE_DRAFT))
       .catch(err => this.setState({ error: err }))
-  }
-
-  onSaveDraft = (model) => {
-    localStorage.setItem(LOCALSTORAGE_DRAFT, JSON.stringify(model));
   }
 
   ord_renderContent() {
@@ -47,18 +38,15 @@ export default class extends StandardPage {
         />
 
         <Container className="c_PostDetail">
-          <div>
-            <h2 className="komu-a cr-title-with-icon">
-              {I18N.get('post.title.add')}
-            </h2>
-            <PostForm
-              lang={this.props.lang}
-              initialValues={this.state.draftPost}
-              onSubmit={this.onSubmit}
-              onCancel={this.historyBack}
-              onSaveDraft={this.onSaveDraft}
-            />
-          </div>
+          <h2 className="komu-a cr-title-with-icon">
+            {I18N.get('post.title.add')}
+          </h2>
+          <PostForm
+            lang={this.props.lang}
+            onSubmit={this.onSubmit}
+            onCancel={this.historyBack}
+            onSaveDraft={this.onSaveDraft}
+          />
         </Container>
         <Footer />
       </div>

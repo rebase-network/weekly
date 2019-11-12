@@ -39,14 +39,6 @@ const mapDispatch = () => {
       return service.saveSortBy(sortBy)
     },
 
-    async onTagsIncludedChanged(tagsIncluded) {
-      return service.saveTagsIncluded(tagsIncluded)
-    },
-
-    async onReferenceStatusChanged(referenceStatus) {
-      return service.saveReferenceStatus(referenceStatus)
-    },
-
     async getList(query) {
 
       query = Object.assign({
@@ -73,9 +65,6 @@ const mapDispatch = () => {
       return service.create(doc)
     },
 
-    async reportAbuse(id) {
-      return service.reportAbuse(id)
-    },
     async subscribe(id) {
       return commentService.subscribe('post', id)
     },

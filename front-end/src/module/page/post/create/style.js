@@ -1,12 +1,11 @@
 import styled from 'styled-components'
+import { breakPoint } from '@/constants/breakPoint'
 
 export const Container = styled.div`
-  padding: 0 50px 80px;
-  width: 80vw;
-  margin: 80px auto 0;
-  background: #ffffff;
-  text-align: left;
-  @media only screen and (max-width: 576px) {
-    margin: 15px;
+  margin: 30px;
+  @media only screen and (max-width: ${breakPoint.mobile}) {
+    width: 100%;
+    padding: 16px;
+    margin: 0;
   }
 `

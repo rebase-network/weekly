@@ -37,7 +37,7 @@ export default {
     cancel: '取消',
   },
   header: {
-    suggestion: '文章',
+    post: '文章',
   },
   search: {
     number: '编号',
@@ -48,5 +48,6 @@ export default {
   },
   btnText: {
     edit: '编辑',
+    add: '添加新文章',
   }
 }

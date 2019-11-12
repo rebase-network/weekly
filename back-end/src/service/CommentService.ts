@@ -35,9 +35,6 @@ export default class extends Base {
             // increase commentsNum if defined in its schema
             if (!_.isUndefined(commentable.commentsNum)) updateObj.commentsNum = updateObj.comments.length
 
-            // increase activeness if defined in its schema
-            if (!_.isUndefined(commentable.activeness)) updateObj.activeness = commentable.activeness + 1
-
             const mentions = comment.match(/@\w+/g)
             if (mentions) {
                 this.sendMentionEmails(type, param, createdBy, mentions, returnUrl, commentable.name)
@@ -61,25 +58,6 @@ export default class extends Base {
                 }
             } else if (commentable.owner) {
                 this.sendNotificationEmail(type, param, createdBy, commentable.owner, undefined, returnUrl, commentable.name)
-            } else if (type === 'Task_Candidate') {
-                commentable = await db_commentable.getDBInstance().findOne({_id: id})
-                    .populate('createdBy')
-                    .populate('user')
-
-                const db_task = this.getDBModel('Task')
-                const task = await db_task.getDBInstance().findOne({_id: commentable.task.toString()})
-                    .populate('createdBy')
-
-                this.sendNotificationEmail('Application', param, createdBy, task.createdBy, commentable.user, returnUrl, undefined)
-            } else if (type === 'User_Team') {
-                commentable = await db_commentable.getDBInstance().findOne({_id: id})
-                    .populate('user')
-
-                const db_team = this.getDBModel('Team')
-                const team = await db_team.getDBInstance().findOne({_id: commentable.team})
-                    .populate('owner')
-
-                this.sendNotificationEmail('Application', param, createdBy, team.owner, commentable.user, returnUrl, undefined)
             } else if (type === 'User') {
                 commentable = await db_commentable.getDBInstance().findOne({_id: id})
                 this.sendNotificationEmail('Profile', param, createdBy, commentable, undefined, returnUrl, undefined)

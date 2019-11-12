@@ -46,9 +46,6 @@ export default createContainer(Component, (state) => {
       return service.resetDetail()
     },
 
-    async reportAbuse(id) {
-      return service.reportAbuse(id)
-    },
     async subscribe(id) {
       return commentService.subscribe('post', id)
     },
@@ -56,11 +53,5 @@ export default createContainer(Component, (state) => {
     async unsubscribe(id) {
       return commentService.unsubscribe('post', id)
     },
-    async needDueDiligence(id) {
-      return service.needDueDiligence(id)
-    },
-    async needAdvisory(id) {
-      return service.needAdvisory(id)
-    }
   }
 })

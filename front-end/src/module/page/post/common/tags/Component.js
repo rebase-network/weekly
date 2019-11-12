@@ -53,13 +53,6 @@ export default ({ data }) => {
           </StatusBadge>
         )
       }
-      {
-        status === POST_STATUS.ARCHIVED && (
-          <StatusBadge>
-            {I18N.get('post.archived')}
-          </StatusBadge>
-        )
-      }
     </Container>
   )
 }

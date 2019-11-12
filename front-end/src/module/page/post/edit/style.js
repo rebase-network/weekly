@@ -6,9 +6,10 @@ import { Button } from 'antd'
 
 export const Container = styled.div`
   margin: 30px;
-
   @media only screen and (max-width: ${breakPoint.mobile}) {
-    width: 90vw;
+    width: 100%;
+    padding: 16px;
+    margin: 0;
   }
 `
 

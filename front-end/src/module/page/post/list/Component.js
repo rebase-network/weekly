@@ -2,22 +2,19 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import _ from 'lodash'
 import styled from 'styled-components'
-import {
-  Pagination, Modal, Button, Col, Row, Select, Spin, Checkbox
-} from 'antd'
+import { Pagination, Button, Col, Row, Spin } from 'antd'
 import I18N from '@/I18N'
-import { loginRedirectWithQuery, logger } from '@/util'
+import { POST_STATUS } from '@/constant'
+import { logger } from '@/util'
 import StandardPage from '@/module/page/StandardPage'
 import Footer from '@/module/layout/Footer/Container'
 import { breakPoint } from '@/constants/breakPoint'
-import MarkdownPreview from '@/module/common/MarkdownPreview'
 
 // import {} from './style'
 
 const SORT_BY = {
   createdAt: 'createdAt',
   likesNum: 'likesNum',
-  activeness: 'activeness',
   viewsNum: 'viewsNum'
 }
 const DEFAULT_SORT = SORT_BY.createdAt
@@ -64,7 +61,7 @@ export default class extends StandardPage {
           >
             <Col xs={24} sm={12} style={{textAlign: 'right', paddingTop: 24}}>
               <Button onClick={this.goCreate} className="btn-create-post">
-                {I18N.get('post.add')}
+                {I18N.get('post.btnText.add')}
               </Button>
             </Col>
           </Row>
@@ -135,9 +132,9 @@ export default class extends StandardPage {
         {/* {metaNode} */}
         {title}
         {/* {tagsNode} */}
-        <ShortDesc>
+        {/* <ShortDesc>
           <MarkdownPreview content={data.desc} />
-        </ShortDesc>
+        </ShortDesc> */}
       </div>
     )
   }
@@ -168,6 +165,7 @@ export default class extends StandardPage {
     const { page } = this.props
     const { results, search, filter } = this.state
     const query = {
+      status: POST_STATUS.PUBLISHED,
       page,
       results
     }
@@ -229,31 +227,6 @@ const ItemTitle = styled(Link)`
   display: block;
   &:hover {
     color: $link_color;
-  }
-`
-
-const ItemLinkWrapper = styled.div`
-  margin-top: 8px;
-  display: block;
-`
-
-const ShortDesc = styled.div`
-  margin-top: 8px;
-  font-weight: 200;
-  .md-RichEditor-editor .public-DraftEditor-content {
-    min-height: 10px;
-  }
-  .md-RichEditor-root {
-    padding: 0;
-    figure.md-block-image {
-      background: none;
-    }
-    figure.md-block-image figcaption .public-DraftStyleDefault-block {
-      text-align: left;
-    }
-    .public-DraftEditor-content {
-      padding: 0px 15px;
-    }
   }
 `
 

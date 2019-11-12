@@ -88,6 +88,7 @@ const Wrapper = styled.div`
     line-height: 1.5;
   }
   .CodeMirror-scroll {
+    background: #FFFFFF;
     padding: 16px 20px 30px 20px;
     overflow: auto !important;
     min-height: 450px;
@@ -102,10 +103,13 @@ const Wrapper = styled.div`
     display: inline-block;
     vertical-align: bottom;
   }
+  figure {
+    margin: 0;
+  }
+
 `
 const Toolbar = styled.div`
   display: flex;
-  margin-bottom: -16px;
   justify-content: flex-end;
 `
 

@@ -19,7 +19,6 @@ export default class extends Base {
     schema.plugin(autoIncrement, options)
     schema.index({ descUpdatedAt: -1 })
     schema.index({ likesNum: -1 })
-    schema.index({ activeness: -1 })
     schema.index({ viewsNum: -1 })
     return schema
   }

@@ -36,11 +36,11 @@ swagger doc is running on **http://localhost:9001**
 ### Currently tests must be `runInBand`
 
 ## Migrations
-### Suggestions
+### Posts
 ```
-db.getCollection('suggestions').find({ abstract: { $exists: false } }).forEach(
+db.getCollection('posts').find({ abstract: { $exists: false } }).forEach(
   function(item) {
-    db.suggestions.update(
+    db.posts.update(
       { "_id": item._id },
       {
         "$set": {

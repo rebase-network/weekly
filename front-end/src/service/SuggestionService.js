@@ -8,8 +8,8 @@ import BaseService from '../model/BaseService'
 export default class extends BaseService {
   constructor() {
     super()
-    this.selfRedux = this.store.getRedux('suggestion')
-    this.prefixPath = '/api/suggestion'
+    this.selfRedux = this.store.getRedux('post')
+    this.prefixPath = '/api/post'
   }
 
   async changePage(page) {
@@ -56,9 +56,9 @@ export default class extends BaseService {
       })
 
       this.dispatch(this.selfRedux.actions.loading_update(false))
-      this.dispatch(this.selfRedux.actions.all_suggestions_reset())
-      this.dispatch(this.selfRedux.actions.all_suggestions_total_update(result.total))
-      this.dispatch(this.selfRedux.actions.all_suggestions_update(_.values(result.list)))
+      this.dispatch(this.selfRedux.actions.all_posts_reset())
+      this.dispatch(this.selfRedux.actions.all_posts_total_update(result.total))
+      this.dispatch(this.selfRedux.actions.all_posts_update(_.values(result.list)))
     } catch (e) {
       logger.error(e)
     }
@@ -67,7 +67,7 @@ export default class extends BaseService {
   }
 
   async myList(qry) {
-    this.dispatch(this.selfRedux.actions.my_suggestions_loading_update(true))
+    this.dispatch(this.selfRedux.actions.my_posts_loading_update(true))
 
     const path = `${this.prefixPath}/list`
     // this.abortFetch(path)
@@ -81,10 +81,10 @@ export default class extends BaseService {
         signal: this.getAbortSignal(path),
       })
 
-      this.dispatch(this.selfRedux.actions.my_suggestions_loading_update(false))
-      this.dispatch(this.selfRedux.actions.my_suggestions_reset())
-      this.dispatch(this.selfRedux.actions.my_suggestions_total_update(result.total))
-      this.dispatch(this.selfRedux.actions.my_suggestions_update(_.values(result.list)))
+      this.dispatch(this.selfRedux.actions.my_posts_loading_update(false))
+      this.dispatch(this.selfRedux.actions.my_posts_reset())
+      this.dispatch(this.selfRedux.actions.my_posts_total_update(result.total))
+      this.dispatch(this.selfRedux.actions.my_posts_update(_.values(result.list)))
     } catch (e) {
       // Do nothing
     }
@@ -93,11 +93,11 @@ export default class extends BaseService {
   }
 
   resetAll() {
-    this.dispatch(this.selfRedux.actions.all_suggestions_reset())
+    this.dispatch(this.selfRedux.actions.all_posts_reset())
   }
 
   resetMyList() {
-    this.dispatch(this.selfRedux.actions.my_suggestions_reset())
+    this.dispatch(this.selfRedux.actions.my_posts_reset())
   }
 
   resetDetail() {
@@ -246,7 +246,7 @@ export default class extends BaseService {
       method: 'post',
     })
     if(res.success) {
-      message.info(I18N.get('suggestion.msg.archived'))
+      message.info(I18N.get('post.msg.archived'))
     }
     return res
   }

@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose'
 import User from './User'
-import Suggestion from './Suggestion'
+import Post from './Post'
 
 import { utilCrypto } from '../utility'
 import * as uuid from 'uuid'
@@ -61,7 +61,7 @@ export default class {
 
   private initDB(db) {
     this.db.User = new User(db)
-    this.db.Suggestion = new Suggestion(db)
+    this.db.Post = new Post(db)
   }
 
   public getModel(name: string) {

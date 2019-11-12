@@ -4,7 +4,7 @@ import db from '../db'
 import {utilCrypto} from '../utility'
 import * as moment from 'moment'
 
-import suggestion from './suggestion'
+import post from './post'
 import upload from './upload'
 import user from './user'
 
@@ -55,7 +55,7 @@ export const middleware = async (req: Request, res: Response, next: NextFunction
 
 const router = Router()
 
-router.use('/suggestion', suggestion)
+router.use('/post', post)
 router.use('/user', user)
 router.use('/upload', upload)
 

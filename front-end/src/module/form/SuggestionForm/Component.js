@@ -101,7 +101,7 @@ class C extends BaseComponent {
 
     return getFieldDecorator('title', {
       rules: [
-        { required: true, message: I18N.get('suggestion.form.error.required') }
+        { required: true, message: I18N.get('post.form.error.required') }
       ],
       initialValue: initialValues.title
     })(
@@ -114,16 +114,16 @@ class C extends BaseComponent {
     const rules = [
       {
         required: true,
-        message: I18N.get('suggestion.form.error.required')
+        message: I18N.get('post.form.error.required')
       }
     ]
     return getFieldDecorator(key, {
       rules,
       initialValue: '1'
     })(<Radio.Group>
-      <Radio value="1">{I18N.get('suggestion.form.type.newMotion')}</Radio>
-      <Radio value="2">{I18N.get('suggestion.form.type.motionAgainst')}</Radio>
-      <Radio value="3">{I18N.get('suggestion.form.type.anythingElse')}</Radio>
+      <Radio value="1">{I18N.get('post.form.type.newMotion')}</Radio>
+      <Radio value="2">{I18N.get('post.form.type.motionAgainst')}</Radio>
+      <Radio value="3">{I18N.get('post.form.type.anythingElse')}</Radio>
     </Radio.Group>)
   }
 
@@ -158,11 +158,11 @@ class C extends BaseComponent {
 
     const rules = [{
       required: true,
-      message: I18N.get('suggestion.form.error.required')
+      message: I18N.get('post.form.error.required')
     }]
     if (id === 'abstract') {
       rules.push({
-        message: I18N.get(`suggestion.form.error.limit${WORD_LIMIT}`),
+        message: I18N.get(`post.form.error.limit${WORD_LIMIT}`),
         validator: this.validateAbstract
       })
     }
@@ -184,7 +184,7 @@ class C extends BaseComponent {
     const hasError = _.has(this.state.errorKeys, id)
     return (
       <TabText hasErr={hasError}>
-        {I18N.get(`suggestion.fields.${id}`)}*
+        {I18N.get(`post.fields.${id}`)}*
       </TabText>
     )
   }
@@ -209,7 +209,7 @@ class C extends BaseComponent {
       <Container>
         <Form onSubmit={this.handleSubmit}>
           <FormItem
-            label={`${I18N.get('suggestion.form.fields.title')}*`}
+            label={`${I18N.get('post.form.fields.title')}*`}
             labelCol={{span: 2}}
             wrapperCol={{span: 18}}
             colon={false}
@@ -225,13 +225,13 @@ class C extends BaseComponent {
           >
             <TabPane tab={this.renderTabText('type')} key="type">
               <TabPaneInner>
-                <Note>{I18N.get('suggestion.form.note.type')}</Note>
+                <Note>{I18N.get('post.form.note.type')}</Note>
                 <FormItem>{this.getTypeRadioGroup('type')}</FormItem>
               </TabPaneInner>
             </TabPane>
             <TabPane tab={this.renderTabText('abstract')} key="abstract">
               <TabPaneInner>
-                <Note>{I18N.get('suggestion.form.note.abstract')}</Note>
+                <Note>{I18N.get('post.form.note.abstract')}</Note>
                 <FormItem>
                   {this.getTextarea('abstract')}
                 </FormItem>
@@ -240,31 +240,31 @@ class C extends BaseComponent {
             </TabPane>
             <TabPane tab={this.renderTabText('goal')} key="goal">
               <TabPaneInner>
-                <Note>{I18N.get('suggestion.form.note.goal')}</Note>
+                <Note>{I18N.get('post.form.note.goal')}</Note>
                 <FormItem>{this.getTextarea('goal')}</FormItem>
               </TabPaneInner>
             </TabPane>
             <TabPane tab={this.renderTabText('motivation')} key="motivation">
               <TabPaneInner>
-                <Note>{I18N.get('suggestion.form.note.motivation')}</Note>
+                <Note>{I18N.get('post.form.note.motivation')}</Note>
                 <FormItem>{this.getTextarea('motivation')}</FormItem>
               </TabPaneInner>
             </TabPane>
             <TabPane tab={this.renderTabText('plan')} key="plan">
               <TabPaneInner>
-                <Note>{I18N.get('suggestion.form.note.plan')}</Note>
+                <Note>{I18N.get('post.form.note.plan')}</Note>
                 <FormItem>{this.getTextarea('plan')}</FormItem>
               </TabPaneInner>
             </TabPane>
             <TabPane tab={this.renderTabText('relevance')} key="relevance">
               <TabPaneInner>
-                <Note>{I18N.get('suggestion.form.note.relevance')}</Note>
+                <Note>{I18N.get('post.form.note.relevance')}</Note>
                 <FormItem>{this.getTextarea('relevance')}</FormItem>
               </TabPaneInner>
             </TabPane>
             <TabPane tab={this.renderTabText('budget')} key="budget">
               <TabPaneInner>
-                <Note>{I18N.get('suggestion.form.note.budget')}</Note>
+                <Note>{I18N.get('post.form.note.budget')}</Note>
                 <FormItem>{this.getTextarea('budget')}</FormItem>
               </TabPaneInner>
             </TabPane>
@@ -276,7 +276,7 @@ class C extends BaseComponent {
               className="cr-btn cr-btn-black"
               htmlType="button"
             >
-              {I18N.get('suggestion.form.button.continue')}
+              {I18N.get('post.form.button.continue')}
             </Button>
           </Row>
 
@@ -287,14 +287,14 @@ class C extends BaseComponent {
               htmlType="button"
               style={{ marginRight: 10 }}
             >
-              {I18N.get('suggestion.form.button.cancel')}
+              {I18N.get('post.form.button.cancel')}
             </Button>
             <Button
               loading={this.state.loading}
               className="cr-btn cr-btn-primary"
               htmlType="submit"
             >
-              {I18N.get('suggestion.form.button.save')}
+              {I18N.get('post.form.button.save')}
             </Button>
           </Row>
         </Form>

@@ -5,22 +5,22 @@ import ResetPasswordPage from '@/module/page/reset_password/Container'
 
 import ProfileInfoPage from '@/module/page/profile/info/Container'
 
-// suggestion
-import SuggestionListPage from '@/module/page/suggestion/list/Container'
-import SuggestionCreatePage from '@/module/page/suggestion/create/Container'
-import SuggestionEditPage from '@/module/page/suggestion/edit/Container'
-import SuggestionDetailPage from '@/module/page/suggestion/detail/Container'
+// post
+import PostListPage from '@/module/page/post/list/Container'
+import PostCreatePage from '@/module/page/post/create/Container'
+import PostEditPage from '@/module/page/post/edit/Container'
+import PostDetailPage from '@/module/page/post/detail/Container'
 
 import NotFound from '@/module/page/error/NotFound'
 
 export default [
   {
     path: '/',
-    page: SuggestionListPage,
+    page: PostListPage,
   },
   {
     path: '/home',
-    page: SuggestionListPage,
+    page: PostListPage,
   },
   /*
     ********************************************************************************
@@ -45,24 +45,24 @@ export default [
   },
   /*
      ********************************************************************************
-     * Suggestion page
+     * Post page
      ********************************************************************************
      */
   {
-    path: '/suggestion',
-    page: SuggestionListPage,
+    path: '/post',
+    page: PostListPage,
   },
   {
-    path: '/suggestion/create',
-    page: SuggestionCreatePage,
+    path: '/post/create',
+    page: PostCreatePage,
   },
   {
-    path: '/suggestion/:id/edit',
-    page: SuggestionEditPage,
+    path: '/post/:id/edit',
+    page: PostEditPage,
   },
   {
-    path: '/suggestion/:id',
-    page: SuggestionDetailPage,
+    path: '/post/:id',
+    page: PostDetailPage,
   },
   /*
     ********************************************************************************

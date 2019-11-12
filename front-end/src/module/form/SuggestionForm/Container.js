@@ -2,20 +2,20 @@ import {
   createContainer,
 } from '@/util'
 import Component from './Component'
-import SuggestionService from '@/service/SuggestionService'
+import PostService from '@/service/PostService'
 
 const mapState = state => ({
-  loading: state.suggestion.loading
+  loading: state.post.loading
 })
 
 const mapDispatch = () => {
-  const suggestionService = new SuggestionService()
+  const postService = new PostService()
   return {
     async create(param) {
-      return suggestionService.create(param)
+      return postService.create(param)
     },
     async update(param) {
-      return suggestionService.update(param)
+      return postService.update(param)
     }
   }
 }

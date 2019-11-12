@@ -33,7 +33,7 @@ export default class extends BaseComponent {
       'about',
       'faq',
       'contact',
-      'suggestion',
+      'post',
       'proposals',
       'constitution/1',
       'whitepaper',
@@ -127,8 +127,8 @@ export default class extends BaseComponent {
                 {I18N.get('navigation.whitepaper')}
               </Menu.Item>
 
-              <Menu.Item key="suggestion">
-                {I18N.get('navigation.suggestion')}
+              <Menu.Item key="post">
+                {I18N.get('navigation.post')}
               </Menu.Item>
 
               <Menu.Item key="elips">

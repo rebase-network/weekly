@@ -107,7 +107,7 @@ class C extends BaseComponent {
 
   renderComment() {
     // const allUsers = _.map(this.props.all_users, user => user.username)
-    const allUsers = [`ALL (${I18N.get('suggestion.form.mention.allCouncil')})`]
+    const allUsers = [`ALL (${I18N.get('post.form.mention.allCouncil')})`]
     _.each(this.props.all_users, obj => {
       const mentionStr = `${obj.username} (${userUtil.formatUsername(obj)})`
       allUsers.push(mentionStr)
@@ -122,7 +122,7 @@ class C extends BaseComponent {
       <Mention
         multiLines={true}
         style={{ width: '100%', height: 100 }}
-        defaultSuggestions={allUsers}
+        defaultPosts={allUsers}
         notFoundContent={I18N.get('mentions.notFound')}
         placeholder={I18N.get('comments.placeholder')}
       />

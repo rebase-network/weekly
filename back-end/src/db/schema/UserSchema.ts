@@ -1,6 +1,6 @@
 import {Schema} from 'mongoose'
 import {CommentSchema} from './CommentSchema'
-import {SubscriberSchema} from './SubscriberSchema'
+// import {SubscriberSchema} from './SubscriberSchema'
 
 export const Region = {
     country: String,
@@ -49,34 +49,6 @@ export const Profile = {
     walletAddress : String
 }
 
-export const WorkProject = {
-    startTime : Date,
-    endTime : Date,
-    description : String,
-    name : String
-}
-
-export const WorkAbout = {
-    status: String, // employed, student, etc
-    employment: String, // company if employed / school if student
-    skill : [String],
-    project : [WorkProject],
-    resume : String,
-
-    notes: String // private internal notes visible only to admin/council
-}
-
-// amount is ELA * 1000
-export const ELA = {
-    address: String,
-    amount: Schema.Types.Number
-}
-
-export const VotePower = {
-    amount: Number,
-    expired: Date
-}
-
 export const User = {
     username : {
         type : String,
@@ -97,7 +69,6 @@ export const User = {
     email: String,
     profile : Profile,
     defaultLanguage: String,
-    workAbout : WorkAbout,
 
     // resetToken, ensure this is never returned
     resetToken: String,
@@ -105,28 +76,15 @@ export const User = {
     // constants.USER_ROLE
     role : String,
 
-    // constants.USER_EMPOWER
-    empower: String,
-
-    elaOwed : [ELA],
-
     notes: String, // private internal notes visible only to admin/council
 
-    // admin or council approved max event budget, defaults to 0
-    // decreases upon usage
-    elaBudget: [ELA],
-
-    votePower : [VotePower],
-    votePowerAmount : {
-        // TODO auto calculate with votePower
-    },
     active : {
         type : Boolean,
         default : false
     },
     logins: [Date],
     comments: [[CommentSchema]],
-    subscribers: [SubscriberSchema],
+    // subscribers: [SubscriberSchema],
     popupUpdate: {
         type: Boolean,
         default: false

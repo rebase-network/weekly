@@ -33,8 +33,8 @@ export default class extends BaseComponent {
       profileSubmissions: '/profile/submissions',
       profileInfo: '/profile/info',
       profileCommunities: '/profile/communities',
-      profileSuggestions: '/profile/suggestion',
-      profileAdminSuggestions: '/admin/suggestion',
+      profilePosts: '/profile/post',
+      profileAdminPosts: '/admin/post',
       profileAdminPermission: '/admin/permission',
       forms: '/admin/forms',
       users: '/admin/users',
@@ -91,12 +91,12 @@ export default class extends BaseComponent {
               <Menu.Item key="profileSubmissions">
                 {I18N.get(this.props.is_admin ? '1304' : '2303')}
               </Menu.Item>
-              <Menu.Item key="profileSuggestions">
-                {I18N.get('profile.suggestion')}
+              <Menu.Item key="profilePosts">
+                {I18N.get('profile.post')}
               </Menu.Item>
               {this.props.is_admin && (
-              <Menu.Item key="profileAdminSuggestions">
-                {I18N.get('admin.suggestion')}
+              <Menu.Item key="profileAdminPosts">
+                {I18N.get('admin.post')}
               </Menu.Item>
               )}
               {this.props.is_admin && (

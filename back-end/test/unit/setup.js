@@ -91,7 +91,7 @@ global.DB = {
 }
 
 require('./data/cvote')
-require('./data/suggestion')
+require('./data/post')
 require('./data/permission')
 require('./data/release')
 require('./data/elip')

@@ -9,7 +9,7 @@ const create = (constant_list: string[]): any => {
   return map
 }
 
-export const SUGGESTION_TYPE = {
+export const POST_TYPE = {
   NEW_MOTION: '1',
   MOTION_AGAINST: '2',
   ANYTHING_ELSE: '3'
@@ -108,7 +108,7 @@ export const LOG_TYPE = {
 export const SUBMISSION_TYPE = {
   BUG: 'BUG',
   SECURITY_ISSUE: 'SECURITY_ISSUE',
-  SUGGESTION: 'SUGGESTION',
+  POST: 'POST',
   ADD_COMMUNITY: 'ADD_COMMUNITY',
   OTHER: 'OTHER',
   FORM_EXT: 'FORM_EXT',
@@ -275,11 +275,11 @@ export const USER_PROFESSION = create([
   'MANAGEMENT'
 ])
 
-export const SUGGESTION_STATUS = create(['ACTIVE', 'ABUSED', 'ARCHIVED'])
+export const POST_STATUS = create(['ACTIVE', 'ABUSED', 'ARCHIVED'])
 
-export const SUGGESTION_ABUSED_STATUS = create(['REPORTED', 'HANDLED'])
+export const POST_ABUSED_STATUS = create(['REPORTED', 'HANDLED'])
 
-export const SUGGESTION_TAG_TYPE = create([
+export const POST_TAG_TYPE = create([
   'UNDER_CONSIDERATION',
   'INFO_NEEDED',
   'ADDED_TO_PROPOSAL'
@@ -298,7 +298,7 @@ export const DB_SELECTED_FIELDS = {
     NAME_EMAIL: 'profile.firstName profile.lastName username email',
     NAME_AVATAR: 'profile.avatar profile.firstName profile.lastName username'
   },
-  SUGGESTION: {
+  POST: {
     ID: 'displayId'
   },
   CVOTE: {

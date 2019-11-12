@@ -11,6 +11,7 @@ const result = {
   register,
   forgot,
   post,
+  'link.back': 'Back',
 }
 
 

@@ -1,20 +1,11 @@
+import styled from 'styled-components'
+import { Button, Row, Anchor } from 'antd'
 import { breakPoint } from '@/constants/breakPoint'
 import { text, bg, primary, border } from '@/constants/color'
 import { gap } from '@/constants/variable'
-import styled from 'styled-components'
-import { Button, Row, Anchor } from 'antd'
 
 export const Container = styled.div`
-  max-width: 1200px;
-  margin: 32px 32px 80px 360px;
-  @media only screen and (max-width: ${breakPoint.xl}) {
-    margin-left: 264px;
-    margin-right: 5%;
-  }
-  @media only screen and (max-width: ${breakPoint.lg}) {
-    margin-left: 240px;
-    margin-right: 32px;
-  }
+  margin: 30px;
   @media only screen and (max-width: ${breakPoint.mobile}) {
     width: 100%;
     padding: 16px;

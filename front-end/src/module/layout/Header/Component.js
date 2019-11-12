@@ -152,49 +152,6 @@ export default class extends BaseComponent {
     )
   }
 
-  buildHelpDropdown() {
-    const hasAdminAccess = [USER_ROLE.ADMIN, USER_ROLE.COUNCIL].includes(this.props.role)
-
-    return (
-      <Menu onClick={this.clickItem.bind(this)} className="help-menu">
-        <Menu.Item key="developer">
-          {I18N.get('0102')}
-        </Menu.Item>
-
-        <Menu.Item key="developer/learn">
-          {I18N.get('developer.learn')}
-        </Menu.Item>
-
-        {this.props.isLogin
-      && (
-        <Menu.Item key="logout">
-          {I18N.get('0204')}
-        </Menu.Item>
-      )
-        }
-      </Menu>
-    )
-  }
-
-  buildResourcesDropdown() {
-    return (
-      <Menu onClick={this.clickItem.bind(this)} className="help-menu">
-        <Menu.Item key="forum">
-          {I18N.get('navigation.resources.submenu.forum')}
-        </Menu.Item>
-
-        <Menu.Item key="blog">
-          {I18N.get('navigation.resources.submenu.blog')}
-        </Menu.Item>
-
-        <Menu.Item key="docs">
-          {I18N.get('navigation.resources.submenu.docs')}
-        </Menu.Item>
-
-      </Menu>
-    )
-  }
-
   getSelectedKeys() {
     let keys = _.map(['cr100', 'crcles', 'ambassadors', 'profile', 'admin',
       'developer', 'social', 'community'], key => (((this.props.pathname || '').indexOf(`/${key}`) === 0) ? key : ''))
@@ -207,96 +164,31 @@ export default class extends BaseComponent {
   }
 
   ord_render() {
-    const helpDropdown = this.buildHelpDropdown()
-
     return (
       <Headroom>
         <Header className="c_Header">
           <Menu
-          onClick={this.clickItem.bind(this)}
-          className="c_Header_Menu pull-left"
-          selectedKeys={this.getSelectedKeys()}
-          mode="horizontal"
-        >
+            onClick={this.clickItem.bind(this)}
+            className="c_Header_Menu pull-left"
+            selectedKeys={this.getSelectedKeys()}
+            mode="horizontal"
+          >
             <Menu.Item className="c_MenuItem logo" key="landing">
-              <MediaQuery minWidth={MIN_WIDTH_PC}>
+              {/* <MediaQuery minWidth={MIN_WIDTH_PC}>
                 <img src="/assets/images/arrow-h.png" alt="Cyber Republic" />
               </MediaQuery>
               <MediaQuery maxWidth={MAX_WIDTH_MOBILE}>
                 <img src="/assets/images/arrow-h.png" alt="Cyber Republic"/>
-              </MediaQuery>
+              </MediaQuery> */}
               {/* <div className="alpha-tag dsk">ALPHA</div> */}
             </Menu.Item>
           </Menu>
-
-          <Menu className="c_Header_Menu c_Side_Menu pull-right">
-            <Menu.Item className="c_MenuItem help no-margin" key="help">
-              <MediaQuery minWidth={MIN_WIDTH_PC}>
-                <Dropdown overlay={helpDropdown} style={{marginTop: '24px'}}>
-                  <a className="ant-dropdown-link">
-                    <Hamburger />
-                  </a>
-                </Dropdown>
-              </MediaQuery>
-            </Menu.Item>
-            <Menu.Item className="c_MenuItem mobile" key="mobileMenu" onClick={this.props.toggleMobileMenu}>
-              <Icon type="menu-fold" style={{fontSize: '24px'}}/>
-            </Menu.Item>
-            <Menu.Item className="mobile-language-dropdown" style={{ marginTop: 13 }}>
-              <MediaQuery maxWidth={MAX_WIDTH_MOBILE}>
-                <div className="pull-right language-dropdown mobile">
-                  {this.buildLanguageDropdown()}
-                </div>
-              </MediaQuery>
-            </Menu.Item>
-          </Menu>
-
-          <MediaQuery minWidth={MIN_WIDTH_PC}>
-            <div className="pull-right language-dropdown">
-              {this.buildLanguageDropdown()}
-            </div>
-          </MediaQuery>
-
           <Menu
-          onClick={this.clickItem.bind(this)}
-          className="c_Header_Menu pull-right"
-          selectedKeys={this.getSelectedKeys()}
-          mode="horizontal"
-        >
-
-            <Menu.Item className="c_MenuItem link" key="council">
-              {I18N.get('navigation.council')}
-            </Menu.Item>
-
-            <Menu.Item className="c_MenuItem link" key="whitepaper">
-              {I18N.get('navigation.whitepaper')}
-            </Menu.Item>
-
-            <Menu.Item className="c_MenuItem link" key="suggestion">
-              {I18N.get('navigation.suggestion')}
-            </Menu.Item>
-
-            <Menu.Item className="c_MenuItem link" key="elips">
-              {I18N.get('navigation.elips')}
-            </Menu.Item>
-
-            <Menu.Item className="c_MenuItem link" key="proposals">
-              {I18N.get('navigation.proposal')}
-            </Menu.Item>
-
-            <Menu.Item className="c_MenuItem link" key="what-is-new">
-              {I18N.get('navigation.whatsNew')}
-            </Menu.Item>
-
-            <Menu.Item className="c_MenuItem link" key="resources">
-              <Dropdown overlay={this.buildResourcesDropdown()} placement="bottomCenter">
-                <a className="ant-dropdown-link">
-                  {I18N.get('navigation.resources.title')}
-                  {/* <Hamburger /> */}
-                </a>
-              </Dropdown>
-            </Menu.Item>
-
+            onClick={this.clickItem.bind(this)}
+            className="c_Header_Menu pull-right"
+            selectedKeys={this.getSelectedKeys()}
+            mode="horizontal"
+          >
             {this.props.isLogin
               ? (
                 <Menu.Item className="c_MenuItem link" key="profile">

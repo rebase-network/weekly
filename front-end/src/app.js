@@ -11,7 +11,6 @@ import { api_request, permissions } from './util'
 
 import './boot'
 import './style/index.scss'
-import './style/mobile.scss'
 
 const middleware = (render, props) => render
 

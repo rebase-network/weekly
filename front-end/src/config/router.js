@@ -1,6 +1,3 @@
-// import LandingPage from '@/module/page/landing/Container'
-import HomePage from '@/module/page/home/Container'
-
 import LoginPage from '@/module/page/login/Container'
 import RegisterPage from '@/module/page/register/Container'
 import ForgotPasswordPage from '@/module/page/forgot_password/Container'
@@ -19,11 +16,11 @@ import NotFound from '@/module/page/error/NotFound'
 export default [
   {
     path: '/',
-    page: HomePage,
+    page: SuggestionListPage,
   },
   {
     path: '/home',
-    page: HomePage,
+    page: SuggestionListPage,
   },
   /*
     ********************************************************************************

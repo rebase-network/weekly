@@ -10,8 +10,6 @@ import Flag from 'react-flags'
 import Data from '@/config/data'
 import UserEditForm from '@/module/form/UserEditForm/Container'
 
-import { StyledMenu } from './style'
-
 const { Header } = Layout
 
 const Hamburger = () => (
@@ -68,10 +66,9 @@ export default class extends BaseComponent {
 
   buildAcctDropdown() {
     const isLogin = this.props.isLogin
-    const hasAdminAccess = [USER_ROLE.ADMIN, USER_ROLE.COUNCIL].includes(this.props.role)
 
     return (
-      <StyledMenu onClick={this.clickItem.bind(this)}>
+      <Menu onClick={this.clickItem}>
         {isLogin
           ? (
             <Menu.Item key="profile">
@@ -98,13 +95,13 @@ export default class extends BaseComponent {
             </Menu.Item>
           )
         }
-      </StyledMenu>
+      </Menu>
     )
   }
 
   buildLanguageDropdown() {
     const menu = (
-      <StyledMenu onClick={this.clickItem.bind(this)} className="language-menu">
+      <Menu onClick={this.clickItem} className="language-menu">
         <Menu.Item key="en">
           <div>
             <Flag
@@ -131,7 +128,7 @@ export default class extends BaseComponent {
             <span className="language-cn">简体中文</span>
           </div>
         </Menu.Item>
-      </StyledMenu>
+      </Menu>
     )
 
     return (
@@ -151,26 +148,27 @@ export default class extends BaseComponent {
   }
 
   getSelectedKeys() {
-    return _.map(['profile', 'login', 'posts/create'], key => (((this.props.pathname || '').indexOf(`/${key}`) === 0) ? key : ''))
+    return _.map(['profile', 'home', 'posts/create'], key => (((this.props.pathname || '').indexOf(`/${key}`) === 0) ? key : ''))
   }
 
   ord_render() {
     return (
       <Header className="c-header">
-        <StyledMenu
+        <Menu
           theme="dark"
           onClick={this.clickItem}
           className="c-header_Menu pull-left"
           selectedKeys={this.getSelectedKeys()}
           mode="horizontal"
         >
-          <Menu.Item className="c_MenuItem logo" key="landing">
-            <MediaQuery minWidth={MIN_WIDTH_PC}>
+          <Menu.Item className="c_MenuItem logo" key="home">
+            WEEKLY
+            {/* <MediaQuery minWidth={MIN_WIDTH_PC}>
               <img src="/assets/images/arrow-h.png" alt="Weekly" />
             </MediaQuery>
             <MediaQuery maxWidth={MAX_WIDTH_MOBILE}>
               <img src="/assets/images/arrow-h.png" alt="Weekly"/>
-            </MediaQuery>
+            </MediaQuery> */}
             {/* <div className="alpha-tag dsk">ALPHA</div> */}
           </Menu.Item>
           <Menu.Item key="posts/create">
@@ -179,8 +177,8 @@ export default class extends BaseComponent {
           <Menu.Item key="profile">
             {I18N.get('header.profile')}
           </Menu.Item>
-        </StyledMenu>
-        <StyledMenu
+        </Menu>
+        <Menu
           onClick={this.clickItem}
           className="c-header_Menu pull-right"
           selectedKeys={this.getSelectedKeys()}
@@ -197,7 +195,7 @@ export default class extends BaseComponent {
               </Menu.Item>
             )
         }
-        </StyledMenu>
+        </Menu>
         <div className="clearfix" />
         {this.renderProfileToast()}
         {this.renderCompleteProfileModal()}

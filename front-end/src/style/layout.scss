@@ -6,6 +6,12 @@
 }
 .c-header {
   background: black;
+  .ant-menu {
+    height: 100%;
+    border: none;
+    background: none;
+    line-height: 64px;
+  }
 }
 
 .c-content {

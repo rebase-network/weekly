@@ -53,7 +53,7 @@ class SocialShareButtons extends BaseComponent {
           <WeChatIcon size={32} />
           <Modal visible={this.state.toggle} footer={null}>
             <InnerWrapper>
-              <Desc>{I18N.get('socialShare.wechat.desc')}</Desc>
+              {/* <Desc>{I18N.get('socialShare.wechat.desc')}</Desc> */}
               <QRCode value={window.location.href} size={256} />
             </InnerWrapper>
           </Modal>

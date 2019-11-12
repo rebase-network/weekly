@@ -44,5 +44,5 @@ export default {
   join: 'Join',
   3533: 'More about you',
   3534: 'Country',
-  'code.title': 'Become a citizen',
+  code_title: 'Become a citizen',
 }

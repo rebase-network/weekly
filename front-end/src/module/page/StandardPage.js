@@ -15,8 +15,6 @@ export default class extends BasePage {
     this.state = {
       showMobile: false
     }
-
-    // analytics.page(location.pathname)
   }
 
   toggleMobileMenu() {

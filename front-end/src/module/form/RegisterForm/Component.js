@@ -279,7 +279,7 @@ class C extends BaseComponent {
         const p = this.getConfirmInputProps()
         return (
           <div>
-            <h3 className="citizen-title komu-a">{I18N.get('register.code.title')}</h3>
+            <h3 className="citizen-title komu-a">{I18N.get('register.code_title')}</h3>
             <Form onSubmit={this.handleSubmit.bind(this)} className="d_registerForm">
               <FormItem>
                 {p.regCode}

@@ -125,7 +125,6 @@ export const User = {
         default : false
     },
     logins: [Date],
-    circles: [{type: Schema.Types.ObjectId, ref: 'team'}],
     comments: [[CommentSchema]],
     subscribers: [SubscriberSchema],
     popupUpdate: {

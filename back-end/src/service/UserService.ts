@@ -312,16 +312,6 @@ export default class extends Base {
         const users = await cursor
         const total = await totalCursor
 
-        if (users.length) {
-            const db_team = this.getDBModel('Team')
-
-            for (let user of users) {
-                await db_team.getDBInstance().populate(user, {
-                    path: 'circles'
-                })
-            }
-        }
-
         return {
             list: users,
             total

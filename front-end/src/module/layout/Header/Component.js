@@ -153,14 +153,7 @@ export default class extends BaseComponent {
   }
 
   getSelectedKeys() {
-    let keys = _.map(['cr100', 'crcles', 'ambassadors', 'profile', 'admin',
-      'developer', 'social', 'community'], key => (((this.props.pathname || '').indexOf(`/${key}`) === 0) ? key : ''))
-
-    if (_.includes(keys, 'admin')) {
-      keys = _.union(_.without(keys, ['admin']), ['profile'])
-    }
-
-    return keys
+    return _.map(['profile', 'login', 'post'], key => (((this.props.pathname || '').indexOf(`/${key}`) === 0) ? key : ''))
   }
 
   ord_render() {
@@ -181,6 +174,9 @@ export default class extends BaseComponent {
                 <img src="/assets/images/arrow-h.png" alt="Cyber Republic"/>
               </MediaQuery> */}
               {/* <div className="alpha-tag dsk">ALPHA</div> */}
+            </Menu.Item>
+            <Menu.Item key="post">
+              {I18N.get('navigation.profile')}
             </Menu.Item>
           </Menu>
           <Menu

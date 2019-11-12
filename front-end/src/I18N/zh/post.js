@@ -45,5 +45,8 @@ export default {
     abstract: '摘要',
     email: '作者邮箱',
     name: '作者姓名'
+  },
+  btnText: {
+    edit: '编辑',
   }
 }

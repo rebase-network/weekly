@@ -77,7 +77,7 @@ export default class extends StandardPage {
         <Container className="c_PostDetail">
         <BackLink
           link="/"
-          style={{ position: 'fixed', left: '27px', top: '189px' }}
+          style={{ position: 'fixed', left: '27px', top: '100px' }}
         />
           <Row gutter={24}>
             <Col span={24}>

@@ -45,5 +45,8 @@ export default {
     abstract: 'Abstract',
     email: 'Author email',
     name: 'Author name'
+  },
+  btnText: {
+    edit: 'Edit',
   }
 }

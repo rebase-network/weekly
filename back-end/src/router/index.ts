@@ -4,27 +4,9 @@ import db from '../db'
 import {utilCrypto} from '../utility'
 import * as moment from 'moment'
 
-import community from './community'
-import cvote from './cvote'
-import cvoteTracking from './cvote_tracking'
-import cvoteSummary from './cvote_summary'
-import google from './google'
-import ping from './ping'
-import permission from './permission'
-import permissionRole from './permission_role'
-import release from './release'
-import sso from './sso'
-import submission from './submission'
 import suggestion from './suggestion'
-import test from './test'
-import team from './team'
-import task from './task'
-import taskCandidate from './task_candidate'
-import teamCandidate from './team_candidate'
 import upload from './upload'
 import user from './user'
-import elip from './elip'
-import elipReview from './elip_review'
 
 /**
  * Every request intercepts the token and sets the session user from the userId again
@@ -73,31 +55,9 @@ export const middleware = async (req: Request, res: Response, next: NextFunction
 
 const router = Router()
 
-if (getEnv() === 'dev') {
-    router.use('/test', test)
-}
-
-router.use('/ping', ping)
-
-router.use('/community', community)
-router.use('/cvote', cvote)
-router.use('/cvoteTracking', cvoteTracking)
-router.use('/cvoteSummary', cvoteSummary)
-router.use('/google', google)
-router.use('/permission', permission)
-router.use('/permissionRole', permissionRole)
-router.use('/release', release)
-router.use('/team', team)
-router.use('/task', task)
-router.use('/taskCandidate', taskCandidate)
-router.use('/teamCandidate', teamCandidate)
-router.use('/submission', submission)
 router.use('/suggestion', suggestion)
-router.use('/sso', sso)
 router.use('/user', user)
 router.use('/upload', upload)
-router.use('/elip', elip)
-router.use('/elipReview', elipReview)
 
 router.use((req, res) => {
     return res.sendStatus(403)

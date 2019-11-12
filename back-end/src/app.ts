@@ -9,7 +9,6 @@ import * as cors from 'cors'
 import * as fileUpload from 'express-fileupload'
 import * as compression from 'compression'
 import * as fs from 'fs'
-import AccessControl from './utility/accessControl'
 import db from './db'
 import { logger } from './utility'
 
@@ -20,7 +19,6 @@ import './config'
 (async ()=>{
     const app = express()
     const DB = await db.create()
-    const permissions = await DB.getModel('Permission').find()
     const prefix = '/api'
 
     app.set('trust proxy', true)
@@ -65,8 +63,6 @@ import './config'
     app.use(middleware)
     app.use(fileUpload())
 
-    // setup access control for REST apis before the router middleware
-    AccessControl(prefix, app, permissions)
 
     app.use(prefix, router)
 

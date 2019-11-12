@@ -1,5 +1,0 @@
-
-# elaHorse Supernode
-
-*Under Development*
-

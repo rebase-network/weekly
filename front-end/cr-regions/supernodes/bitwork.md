@@ -1,4 +1,0 @@
-
-# BitWork Supernode
-
-*Under Development*

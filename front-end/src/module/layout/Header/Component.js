@@ -266,36 +266,11 @@ export default class extends BaseComponent {
     const { isLogin } = this.props
 
     if (_.includes([
-      'landing',
       'home',
-      'developer',
-      'developer/learn',
-      'cr100',
-      'crcles',
-      'ambassadors',
-      'social',
-      'leader',
-      'community',
-      'proposals',
-      'directory',
-      'account',
-      'tasks',
       'login',
       'register',
       'signup',
       'profile/info',
-      'how-to-earn',
-      'help',
-      'about',
-      'faq',
-      'contact',
-      'slack',
-      'suggestion',
-      'council',
-      'constitution/1',
-      'whitepaper',
-      'what-is-new',
-      'elips'
     ], key)) {
       if (key === 'landing') {
         this.props.history.push('/')
@@ -304,17 +279,6 @@ export default class extends BaseComponent {
       }
 
       // below this are exceptions from the list above
-    } else if (key === 'notice') {
-      // hack for now
-      localStorage.setItem('popup-update', 'force')
-      window.location.reload()
-    } else if (key === 'forum') {
-      if (!isLogin) {
-        this.props.history.push('/login?MSG_CODE=1')
-      } else {
-        const forumLink = `${process.env.FORUM_URL}/login`
-        window.open(forumLink, '_blank')
-      }
     } else if (key === 'logout') {
 
       Modal.confirm({
@@ -331,22 +295,6 @@ export default class extends BaseComponent {
       })
     } else if (key === 'profile') {
       this.props.history.push('/profile/info')
-    } else if (key === 'blog') {
-      let linkToBlog = 'https://blog.cyberrepublic.org'
-
-      if (I18N.getLang() === USER_LANGUAGE.zh) {
-        linkToBlog += `/${USER_LANGUAGE.zh}`
-      }
-
-      window.location.href = linkToBlog
-    } else if (key === 'docs') {
-      let linkTo = 'https://cyberrepublic.org/docs/#/'
-
-      if (I18N.getLang() === USER_LANGUAGE.zh) {
-        linkTo += `${USER_LANGUAGE.zh}/`
-      }
-
-      window.location.href = linkTo
     } else if (_.includes([
       'en',
       'zh',

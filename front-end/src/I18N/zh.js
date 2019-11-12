@@ -1,9 +1,12 @@
 import home from './zh/home'
+import login from './zh/login'
+import register from './zh/register'
 
 
 const result = {
   home,
-  test: 'test'
+  login,
+  register,
 }
 
 

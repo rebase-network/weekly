@@ -9,7 +9,6 @@ import Meta from '@/module/common/Meta'
 import StandardPage from '../../StandardPage'
 
 import { Container, Title } from './style'
-import './style.scss'
 
 const LOCALSTORAGE_DRAFT = 'draft-post';
 
@@ -25,7 +24,7 @@ export default class extends StandardPage {
   }
 
   historyBack = () => {
-    this.props.history.push('/post')
+    this.props.history.push('/')
   }
 
   onSubmit = (model) => {
@@ -43,23 +42,11 @@ export default class extends StandardPage {
     return (
       <div>
         <Meta
-          title="Add Post Detail - Cyber Republic"
+          title="Add Post Detail"
           url={this.props.location.pathname}
         />
 
         <Container className="c_PostDetail">
-          <MediaQuery maxWidth={LG_WIDTH}>
-            <div>
-              <BackLink
-                link="/post"
-                style={{ position: 'relative', left: 0, marginBottom: 15 }}
-              />
-            </div>
-          </MediaQuery>
-          <MediaQuery minWidth={LG_WIDTH + 1}>
-            <BackLink link="/post" />
-          </MediaQuery>
-
           <div>
             <h2 className="komu-a cr-title-with-icon">
               {I18N.get('post.title.add')}

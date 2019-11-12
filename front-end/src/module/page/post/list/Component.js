@@ -6,13 +6,13 @@ import {
   Pagination, Modal, Button, Col, Row, Select, Spin, Checkbox
 } from 'antd'
 import I18N from '@/I18N'
-import { logger } from '@/util'
+import { loginRedirectWithQuery, logger } from '@/util'
 import StandardPage from '@/module/page/StandardPage'
 import Footer from '@/module/layout/Footer/Container'
 import { breakPoint } from '@/constants/breakPoint'
 import MarkdownPreview from '@/module/common/MarkdownPreview'
 
-import './style.scss'
+// import {} from './style'
 
 const SORT_BY = {
   createdAt: 'createdAt',
@@ -33,7 +33,7 @@ export default class extends StandardPage {
       search: '',
       filter: ''
     }
-    this.debouncedRefetch = _.debounce(this.refetch.bind(this), 300)
+    // this.debouncedRefetch = _.debounce(this.refetch.bind(this), 300)
   }
 
   componentDidMount() {
@@ -63,7 +63,7 @@ export default class extends StandardPage {
             style={{margin: '24px 0 48px'}}
           >
             <Col xs={24} sm={12} style={{textAlign: 'right', paddingTop: 24}}>
-              <Button onClick={this.showCreateForm} className="btn-create-post">
+              <Button onClick={this.goCreate} className="btn-create-post">
                 {I18N.get('post.add')}
               </Button>
             </Col>
@@ -80,12 +80,23 @@ export default class extends StandardPage {
     )
   }
 
+  goCreate = () => {
+    const { isLogin, history } = this.props
+    if (!isLogin) {
+      // const query = { create: true }
+      // loginRedirectWithQuery({ query })
+      history.push('/login')
+      return
+    }
+    this.props.history.push('/posts/create')
+  }
+
   renderHeader() {
     return (
       <div>
         <PostContainer
           className="title komu-a cr-title-with-icon">
-          {this.props.header || I18N.get('post.title').toUpperCase()}
+          {this.props.header || I18N.get('post.title.allPosts').toUpperCase()}
         </PostContainer>
       </div>
     )
@@ -115,20 +126,17 @@ export default class extends StandardPage {
   }
 
   renderItem = (data) => {
-    const href = `/post/${data._id}`
-    const metaNode = this.renderMetaNode(data)
+    const href = `/posts/${data._id}`
+    // const metaNode = this.renderMetaNode(data)
     const title = <ItemTitle to={href}>{data.title}</ItemTitle>
-    const tagsNode = this.renderTagsNode(data)
+    // const tagsNode = this.renderTagsNode(data)
     return (
       <div key={data._id} className="item-container">
-        {metaNode}
+        {/* {metaNode} */}
         {title}
-        {tagsNode}
+        {/* {tagsNode} */}
         <ShortDesc>
-          <MarkdownPreview content={data.abstract} />
-          {_.isArray(data.link) && (data.link.map((link) => {
-            return <ItemLinkWrapper key={link}><a target="_blank" href={link}>{link}</a></ItemLinkWrapper>
-          }))}
+          <MarkdownPreview content={data.desc} />
         </ShortDesc>
       </div>
     )
@@ -207,7 +215,7 @@ export default class extends StandardPage {
   }
 
   gotoDetail(id) {
-    this.props.history.push(`/post/${id}`)
+    this.props.history.push(`/posts/${id}`)
   }
 }
 

@@ -49,19 +49,19 @@ export default [
      ********************************************************************************
      */
   {
-    path: '/post',
+    path: '/posts',
     page: PostListPage,
   },
   {
-    path: '/post/create',
+    path: '/posts/create',
     page: PostCreatePage,
   },
   {
-    path: '/post/:id/edit',
+    path: '/posts/:id/edit',
     page: PostEditPage,
   },
   {
-    path: '/post/:id',
+    path: '/posts/:id',
     page: PostDetailPage,
   },
   /*

@@ -257,6 +257,6 @@ export default class extends ProfilePage {
   }
 
   gotoDetail(id) {
-    this.props.history.push(`/post/${id}`)
+    this.props.history.push(`/posts/${id}`)
   }
 }

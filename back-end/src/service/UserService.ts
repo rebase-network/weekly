@@ -507,7 +507,7 @@ export default class extends Base {
         const fromUser = await db_user.findById(fromUserId)
         const toUser = await db_user.findById(toUserId)
 
-        const formattedSubject = subject || 'New Cyber Republic private message'
+        const formattedSubject = subject || 'New private message'
 
         const body = `
             New message from <a href="${process.env.SERVER_URL}/member/${fromUserId}">${fromUser.username}</a>
@@ -546,13 +546,13 @@ export default class extends Base {
         await mail.send({
             to: email,
             toName: email,
-            subject: 'Your Cyber Republic registration code',
+            subject: 'Your registration code',
             body: `Your code: ${code}`
         })
 
         await mail.send({
-            to: 'clarenceliu@elastos.org',
-            toName: 'clarenceliu@elastos.org',
+            to: '2411mail@gmail.com',
+            toName: '2411mail@gmail.com',
             subject: 'New Code Registration',
             body: `Code: ${code} -> ${email}`
         })
@@ -566,7 +566,7 @@ export default class extends Base {
         await mail.send({
             to: email,
             toName: email,
-            subject: 'Welcome to Cyber Republic',
+            subject: 'Welcome',
             body: `
                 Your registration is complete, your login is automatically linked to the CR forums.<br/>
                 <br/>

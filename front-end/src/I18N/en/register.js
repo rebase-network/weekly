@@ -2,7 +2,7 @@ export default {
   // RegisterFrom
   title: '注册',
   description_1: 'This will only take a few seconds.',
-  description_2: 'As a member you can sign up for bounties on Cyber Republic.',
+  description_2: 'As a member you can sign up for bounties.',
   required: 'Required Fields',
   error: {
     code: 'The code you entered does not match',
@@ -39,7 +39,7 @@ export default {
   },
   code: 'We have sent a confirmation code to ',
   submit: 'Register',
-  welcome: 'Welcome to the Cyber Republic!',
+  welcome: 'Welcome!',
   join_circle: 'Join a CRcle and earn ELA',
   join: 'Join',
   3533: 'More about you',

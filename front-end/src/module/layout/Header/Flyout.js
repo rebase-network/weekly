@@ -82,7 +82,7 @@ export default class extends BaseComponent {
                                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi non quis exercitationem culpa nesciunt nihil aut nostrum explicabo reprehenderit optio amet ab temporibus asperiores quasi cupiditate. Voluptatum ducimus voluptates voluptas?
                   </div>
                   <div className="intro-heading">
-                                    Stay up to date with Cyber Republic
+                                    Stay up to date with us
                   </div>
                   <Input placeholder="Enter Email" />
                   <div className="intro-heading">

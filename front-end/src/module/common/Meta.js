@@ -6,21 +6,20 @@ export default class extends BaseComponent {
   ord_render() {
     const { desc, title, url } = this.props
 
-    let host = 'https://cyberrepublic.org'
+    let host = 'https://weekly.org'
     switch (process.env.NODE_ENV) {
       case 'development':
         host = 'http://localhost:3001'
         break
       case 'staging':
-        host = 'https://staging.cyberrepublic.org'
+        host = 'https://staging.weekly.org'
         break
       default:
         break
     }
 
     const slogan =
-      'Cyber Republic is a global, ' +
-      'citizen led decentralised community helping build on the new internet on the secure Elastos Smartweb'
+      'Weekly is a tool to manage knowledge for your community'
 
     const description = desc || slogan
 
@@ -31,7 +30,7 @@ export default class extends BaseComponent {
       },
       {
         property: 'og:title',
-        content: title || 'Cyber Republic - Elastos'
+        content: title || 'Weekly'
       },
       {
         property: 'og:description',
@@ -39,11 +38,11 @@ export default class extends BaseComponent {
       },
       {
         property: 'og:image',
-        content: 'https://www.cyberrepublic.org/assets/images/cr_landing.png'
+        content: 'https://www.weekly.org/assets/images/cr_landing.png'
       },
       { property: 'og:url', content: url ? `${host}${url}` : host },
-      { property: 'og:site_name', content: 'Cyber Republic' },
-      { property: 'twitter:image:alt', content: 'Cyber Republic Logo' },
+      { property: 'og:site_name', content: 'Weekly' },
+      { property: 'twitter:image:alt', content: 'Weekly Logo' },
       { name: 'twitter:card', content: description }
     ]
 

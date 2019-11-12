@@ -27,60 +27,6 @@ export default class extends Base {
     return result
   }
 
-  // obsolete method
-  public async sendMentionEmails(post, mentions) {
-    const db_user = this.getDBModel('User')
-    const query = { role: constant.USER_ROLE.COUNCIL }
-    const councilMembers = await db_user.getDBInstance().find(query)
-        .select(constant.DB_SELECTED_FIELDS.USER.NAME_EMAIL)
-
-    const subject = 'You were mentioned in a post'
-    const body = `
-      <p>You were mentioned in a post, click this link to view more details:</p>
-      <br />
-      <p><a href="${process.env.SERVER_URL}/post/${post._id}">${process.env.SERVER_URL}/post/${post._id}</a></p>
-      <br /> <br />
-      <p>Thanks</p>
-      <p>Cyber Republic</p>
-    `
-
-    if (_.includes(mentions, '@</span>ALL')) {
-      _.map(councilMembers, user => {
-        mail.send({
-          to: user.email,
-          toName: userUtil.formatUsername(user),
-          subject,
-          body
-        })
-      })
-      return
-    }
-
-    // hack for now, don't send more than 1 email to an individual subscriber
-    const seenEmails = {}
-
-    for (let mention of mentions) {
-      const username = mention.replace('@</span>', '')
-      const user = await db_user.findOne({ username })
-
-      const to = user.email
-      const toName = userUtil.formatUsername(user)
-
-      if (seenEmails[to]) {
-        continue
-      }
-
-      await mail.send({
-        to,
-        toName,
-        subject,
-        body
-      })
-
-      seenEmails[to] = true
-    }
-  }
-
   public async update(param: any): Promise<Document> {
     const { id, update } = param
     const userId = _.get(this.currentUser, '_id')
@@ -112,80 +58,10 @@ export default class extends Base {
       param,
       [
         'results', 'page', 'sortBy', 'sortOrder',
-        'filter', 'profileListFor', 'search',
-        'tagsIncluded', 'referenceStatus'
+        'filter', 'search',
       ]
     )
-    const { sortBy, sortOrder, tagsIncluded, referenceStatus, profileListFor } = param
-
-    if (!profileListFor) {
-      query.$or = []
-      const search = _.trim(param.search)
-      const filter = param.filter
-      if (search && filter) {
-        const SEARCH_FILTERS = {
-          TITLE: 'TITLE',
-          NUMBER: 'NUMBER',
-          ABSTRACT: 'ABSTRACT',
-          EMAIL: 'EMAIL',
-          NAME: 'NAME'
-        }
-
-        if (filter === SEARCH_FILTERS.NUMBER) {
-          query.$or = [{ displayId: parseInt(search) || 0 }]
-        }
-
-        if (filter === SEARCH_FILTERS.TITLE) {
-          query.$or = [
-            { title: { $regex: search, $options: 'i' } }
-          ]
-        }
-
-        if (filter === SEARCH_FILTERS.ABSTRACT) {
-          query.$or = [
-            { abstract: { $regex: search, $options: 'i' } }
-          ]
-        }
-
-        if (filter === SEARCH_FILTERS.EMAIL) {
-          const db_user = this.getDBModel('User')
-          const users = await db_user.getDBInstance().find({
-            $or: [
-              { email: { $regex: search, $options: 'i' } }
-            ]
-          }).select('_id')
-          const userIds = _.map(users, (el: { _id: string }) => el._id)
-          query.$or = [{ createdBy: { $in: userIds } }]
-        }
-
-        if (filter === SEARCH_FILTERS.NAME) {
-          const db_user = this.getDBModel('User')
-          const pattern = search.split(' ').join('|')
-          const users = await db_user.getDBInstance().find({
-            $or: [
-              { username: { $regex: search, $options: 'i' } },
-              { 'profile.firstName': { $regex: pattern, $options: 'i' } },
-              { 'profile.lastName': { $regex: pattern, $options: 'i' } }
-            ]
-          }).select('_id')
-          const userIds = _.map(users, (el: { _id: string }) => el._id)
-          query.$or = [{ createdBy: { $in: userIds } }]
-        }
-      }
-
-      let qryTagsType: any
-      if (!_.isEmpty(tagsIncluded)) {
-        qryTagsType = { $in: tagsIncluded.split(',') }
-        query.$or.push({ 'tags.type': qryTagsType })
-      }
-      if (referenceStatus === 'true') {
-        // if we have another tag selected we only want that tag and referenced posts
-        query.$or.push({ reference: { $exists: true, $ne: [] } })
-      }
-
-      if (_.isEmpty(query.$or)) delete query.$or
-      delete query['tags.type']
-    }
+    const { sortBy, sortOrder } = param
 
     let cursor: any
     // posts on post list page
@@ -198,20 +74,17 @@ export default class extends Base {
       sortObject[sortBy] = _.get(constant.SORT_ORDER, sortOrder, constant.SORT_ORDER.DESC)
 
       const excludedFields = [
-        '-comments', '-goal', '-motivation',
-        '-relevance', '-budget', '-plan',
-        '-subscribers', '-likes', '-dislikes', '-updatedAt'
+        '-comments', '-subscribers', '-likes', '-dislikes', '-updatedAt'
       ]
 
       cursor = this.model.getDBInstance()
         .find(query, excludedFields.join(' '))
         .populate('createdBy', constant.DB_SELECTED_FIELDS.USER.NAME_EMAIL)
-        .populate('reference', constant.DB_SELECTED_FIELDS.CVOTE.ID_STATUS)
         .sort(sortObject)
     } else {
       // my posts on profile page
       cursor = this.model.getDBInstance()
-        .find(query, 'title activeness commentsNum createdAt dislikesNum displayId likesNum')
+        .find(query, 'title commentsNum createdAt dislikesNum displayId likesNum')
     }
 
     if (param.results) {
@@ -241,7 +114,6 @@ export default class extends Base {
     const doc = await this.model.getDBInstance()
       .findById(_id)
       .populate('createdBy', constant.DB_SELECTED_FIELDS.USER.NAME_EMAIL)
-      .populate('reference', constant.DB_SELECTED_FIELDS.CVOTE.ID_STATUS)
 
     if (_.isEmpty(doc.comments)) return doc
 
@@ -312,15 +184,6 @@ export default class extends Base {
       })
     }
 
-    return this.model.findById(_id)
-  }
-
-  public async reportabuse(param: any): Promise<Document> {
-    const { id: _id } = param
-    const updateObject = {
-      abusedStatus: constant.POST_ABUSED_STATUS.REPORTED
-    }
-    await this.model.findOneAndUpdate({ _id }, updateObject)
     return this.model.findById(_id)
   }
 
@@ -438,125 +301,9 @@ export default class extends Base {
       }
 
       await this.model.findOneAndUpdate({ _id }, updateObject)
-      if (type === constant.POST_TAG_TYPE.UNDER_CONSIDERATION) {
-        this.notifySubscribers(_id)
-      } else if (type === constant.POST_TAG_TYPE.INFO_NEEDED) {
-        this.notifyOwner(_id, desc)
-      }
       return this.model.findById(_id)
     } catch(error) {
       logger.error(error)
-    }
-  }
-
-  public async abuse(param: any): Promise<Document> {
-    const { id: _id } = param
-    const updateObject = {
-      status: constant.POST_STATUS.ABUSED,
-      abusedStatus: constant.POST_ABUSED_STATUS.HANDLED
-    }
-    await this.model.findOneAndUpdate({ _id }, updateObject)
-    return this.model.findById(_id)
-  }
-
-  public async investigation(param: any): Promise<object> {
-    const { id } = param
-    const sugg = await this.model.getDBInstance().findById(id)
-    if (!sugg) {
-      return { success: false }
-    }
-    const council = userUtil.formatUsername(this.currentUser)
-    const subject = `Need due diligence on post #${sugg.displayId}`
-    const body = `
-      <p>Council member ${council} requested secretary to do due diligence on post #${sugg.displayId}</p>
-      <br />
-      <p>Click the link to view the post detail: <a href="${
-      process.env.SERVER_URL
-      }/post/${sugg._id}">${process.env.SERVER_URL}/post/${sugg._id}</a></p>
-      <br />
-      <p>Cyber Republic Team</p>
-      <p>Thanks</p>
-    `
-
-    await this.notifySecretaries(subject, body)
-    return { success: true, message: 'Ok' }
-  }
-
-  public async advisory(param: any): Promise<object> {
-    const { id } = param
-    const sugg = await this.model.getDBInstance().findById(id)
-    if (!sugg) {
-      return { success: false }
-    }
-    const council = userUtil.formatUsername(this.currentUser)
-    const subject = `Need advisory on post #${sugg.displayId}`
-    const body = `
-      <p>Council member ${council} requested secretary to provide advisory on post #${sugg.displayId}</p>
-      <br />
-      <p>Click the link to view the post detail: <a href="${
-      process.env.SERVER_URL
-      }/post/${sugg._id}">${process.env.SERVER_URL}/post/${sugg._id}</a></p>
-      <br />
-      <p>Cyber Republic Team</p>
-      <p>Thanks</p>
-    `
-
-    await this.notifySecretaries(subject, body)
-    return { success: true, message: 'Ok' }
-  }
-
-  private async notifySecretaries(subject: string, body: string): Promise<any> {
-    const db_user = this.getDBModel('User')
-    const currentUserId = _.get(this.currentUser, '_id')
-    const secretaries = await db_user.find({
-      role: constant.USER_ROLE.SECRETARY
-    })
-    const toUsers = _.filter(
-      secretaries,
-      user => !user._id.equals(currentUserId)
-    )
-    const toMails = _.map(toUsers, 'email')
-    const recVariables = _.zipObject(
-      toMails,
-      _.map(toUsers, user => {
-        return {
-          _id: user._id,
-          username: userUtil.formatUsername(user)
-        }
-      })
-    )
-    const mailObj = {
-      to: toMails,
-      subject,
-      body,
-      recVariables
-    }
-
-    return mail.send(mailObj)
-  }
-
-  /**
-   * Admin and Author
-   */
-  public async archive(param: any): Promise<object> {
-    const { id: _id } = param
-    const post = await this.model.getDBInstance().findById(_id).populate('createdBy')
-    if (!post) {
-      return
-    }
-    const isAdmin = this.currentUser.role === constant.USER_ROLE.ADMIN
-    const isAuthor = post.createdBy._id.equals(this.currentUser._id)
-    if (!(isAdmin || isAuthor)) {
-      return
-    }
-    const updateObject = {
-      status: constant.POST_STATUS.ARCHIVED,
-    }
-    try {
-      await this.model.update({ _id }, updateObject)
-      return { success: true, message: 'ok' }
-    } catch (err) {
-      return { success: false, message: 'ok' }
     }
   }
 

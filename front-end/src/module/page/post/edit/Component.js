@@ -12,8 +12,6 @@ import Meta from '@/module/common/Meta'
 
 import { Container } from './style'
 
-import './style.scss'
-
 export default class extends StandardPage {
   constructor(props) {
     super(props)
@@ -34,7 +32,7 @@ export default class extends StandardPage {
 
   historyBack = () => {
     const id = this.state.data._id
-    this.props.history.push(`/post/${id}`)
+    this.props.history.push(`/posts/${id}`)
   }
 
   onSubmit = (model) => {
@@ -42,11 +40,6 @@ export default class extends StandardPage {
     return this.props.updatePost({ id, ...model, update: true })
       .then(() => this.historyBack())
       .catch(err => this.setState({ error: err }))
-  }
-  onSaveDraft = (model) => {
-    const id = this.state.data._id
-    this.props.updatePost({ id, ...model })
-      .catch(err => console.log(err))
   }
 
   ord_renderContent() {
@@ -61,7 +54,7 @@ export default class extends StandardPage {
     return (
       <div>
         <Meta
-          title="Edit Post Detail - Cyber Republic"
+          title="Edit Post Detail"
           url={this.props.location.pathname}
         />
 
@@ -69,13 +62,13 @@ export default class extends StandardPage {
           <MediaQuery maxWidth={LG_WIDTH}>
             <div>
               <BackLink
-                link={`/post/${_.get(this.props, 'match.params.id')}`}
+                link={`/posts/${_.get(this.props, 'match.params.id')}`}
                 style={{ position: 'relative', left: 0, marginBottom: 15 }}
               />
             </div>
           </MediaQuery>
           <MediaQuery minWidth={LG_WIDTH + 1}>
-            <BackLink link="/post" />
+            <BackLink link="/posts" />
           </MediaQuery>
 
           <div>

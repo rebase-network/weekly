@@ -1,16 +1,14 @@
-import { createContainer } from '@/util'
-import Component from './Component'
-import CommentService from '@/service/CommentService'
 import { message } from 'antd'
 import _ from 'lodash'
-import { logger } from '@/util'
+import { createContainer, logger } from '@/util'
+import CommentService from '@/service/CommentService'
+import Component from './Component'
 
 export default createContainer(Component, (state) => {
   const commentables = ['task', 'submission', 'team', 'member', 'elip']
 
   const props = {
     currentUserId: state.user.current_user_id,
-    all_users: _.values(state.council.council_members || []),
     loading: {},
   }
 

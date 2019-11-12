@@ -1,7 +1,6 @@
 import React from 'react'
 import Navigator from '@/module/page/shared/HomeNavigator/Container'
 import I18N from '@/I18N'
-import Footer from '@/module/layout/Footer/Container'
 import Profile from '@/module/profile/Container'
 
 import './style.scss'
@@ -47,7 +46,6 @@ export default class extends ProfilePage {
             </div>
           </div>
         </div>
-        <Footer/>
       </div>
     )
   }

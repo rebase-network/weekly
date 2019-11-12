@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
 import moment from 'moment/moment'
 // import Comments from '@/module/common/comments/Container'
-import Footer from '@/module/layout/Footer/Container'
 import BackLink from '@/module/shared/BackLink/Component'
 import I18N from '@/I18N'
 import { LG_WIDTH } from '@/config/constant'
@@ -62,7 +61,6 @@ export default class extends StandardPage {
       )
     }
     const detailNode = this.renderDetail()
-    const ownerActionsNode = this.renderOwnerActionsNode()
     // const commentNode = this.renderCommentNode()
     const socialShareButtonsNode = this.renderSocialShareButtonsNode()
 
@@ -75,20 +73,26 @@ export default class extends StandardPage {
         />
 
         <Container className="c_PostDetail">
-        <BackLink
-          link="/"
-          style={{ position: 'fixed', left: '27px', top: '100px' }}
-        />
+          <MediaQuery maxWidth={LG_WIDTH}>
+            <div>
+              <BackLink
+                link="/"
+                style={{ position: 'relative', left: 0, marginBottom: 15 }}
+              />
+            </div>
+          </MediaQuery>
+          <MediaQuery minWidth={LG_WIDTH + 1}>
+            <BackLink link="/" />
+          </MediaQuery>
+
           <Row gutter={24}>
             <Col span={24}>
               {detailNode}
               {socialShareButtonsNode}
-              {ownerActionsNode}
               {/* <div style={{ marginTop: 60 }}>{commentNode}</div> */}
             </Col>
           </Row>
         </Container>
-        <Footer />
       </div>
     )
   }
@@ -97,6 +101,7 @@ export default class extends StandardPage {
     const { detail } = this.props
     // const metaNode = this.renderMetaNode()
     const titleNode = this.renderTitleNode()
+    const ownerActionsNode = this.renderOwnerActionsNode()
     // const labelNode = this.renderLabelNode()
     // const tagsNode = this.renderTagsNode()
 
@@ -104,6 +109,7 @@ export default class extends StandardPage {
       <div>
         {/* {metaNode} */}
         {titleNode}
+        {ownerActionsNode}
         {/* <div style={{ margin: '14px 0' }}>{labelNode}</div>
         <div>{tagsNode}</div> */}
 
@@ -133,7 +139,7 @@ export default class extends StandardPage {
       <StyledButton
         type="ebp"
         className="cr-btn cr-btn-default"
-        onClick={this.showEditForm}
+        onClick={this.goEdit}
       >
         {I18N.get('post.btnText.edit')}
       </StyledButton>
@@ -162,14 +168,14 @@ export default class extends StandardPage {
   onFormSubmit = async param => {
     try {
       await this.props.update(param)
-      this.showEditForm()
+      this.goEdit()
       this.refetch()
     } catch (error) {
       logger.error(error)
     }
   }
 
-  showEditForm = () => {
+  goEdit = () => {
     const id = _.get(this.props, 'match.params.id')
     this.props.history.push(`/posts/${id}/edit`)
   }

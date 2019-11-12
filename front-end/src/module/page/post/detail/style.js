@@ -5,20 +5,12 @@ import { text, bg, primary, border } from '@/constants/color'
 import { gap } from '@/constants/variable'
 
 export const Container = styled.div`
-  margin: 30px;
-  @media only screen and (max-width: ${breakPoint.mobile}) {
-    width: 100%;
-    padding: 16px;
-    margin: 0;
-  }
 `
 
 export const Title = styled.div`
   font-size: 30px;
   color: ${text.newGray};
-  margin-top: 26px;
   margin-bottom: 8px;
-  padding: 4px 8px;
  `
 
 export const CoverImg = styled.img`
@@ -82,15 +74,7 @@ export const BtnGroup = styled.div`
   margin: ${gap.gap_2} 0;
 `
 
-export const StyledButton = styled(Button)`
-  margin: 8px 0;
-  > span {
-    font-size: 12px !important;
-    line-height: 12px !important;
-    display: block;
-    margin-top: -4px;
-  }
-`
+export const StyledButton = Button
 
 export const IconWrap = styled.div`
   display: inline-block;

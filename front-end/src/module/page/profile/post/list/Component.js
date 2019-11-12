@@ -5,7 +5,6 @@ import ProfilePage from '@/module/page/ProfilePage'
 import { Col, Row, Select, Button, Table } from 'antd'
 import moment from 'moment/moment'
 import I18N from '@/I18N'
-import Footer from '@/module/layout/Footer/Container'
 import Navigator from '@/module/page/shared/HomeNavigator/Container'
 import { MAX_WIDTH_MOBILE, MIN_WIDTH_PC } from '@/config/constant'
 
@@ -77,7 +76,6 @@ export default class extends ProfilePage {
             {body}
           </Row>
         </div>
-        <Footer />
       </div>
     )
   }

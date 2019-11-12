@@ -41,7 +41,6 @@
     "react-codemirror2": "^6.0.0",
     "react-dom": "^16.11.0",
     "react-flags": "^0.1.13",
-    "react-headroom": "^3.0.0",
     "react-helmet": "^5.2.0",
     "react-motion": "^0.5.2",
     "react-redux": "^5.0.6",

@@ -1,6 +1,5 @@
 import React from 'react'
 import MediaQuery from 'react-responsive'
-import Footer from '@/module/layout/Footer/Container'
 import BackLink from '@/module/shared/BackLink/Component'
 import PostForm from '@/module/form/PostForm/Component'
 import I18N from '@/I18N'
@@ -48,7 +47,6 @@ export default class extends StandardPage {
             onSaveDraft={this.onSaveDraft}
           />
         </Container>
-        <Footer />
       </div>
     )
   }

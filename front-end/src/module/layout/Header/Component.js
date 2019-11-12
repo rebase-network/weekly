@@ -9,7 +9,6 @@ import { USER_ROLE, USER_LANGUAGE } from '@/constant'
 import Flag from 'react-flags'
 import Data from '@/config/data'
 import UserEditForm from '@/module/form/UserEditForm/Container'
-import Headroom from 'react-headroom'
 import Flyout from './Flyout'
 
 const { Header } = Layout
@@ -158,50 +157,48 @@ export default class extends BaseComponent {
 
   ord_render() {
     return (
-      <Headroom>
-        <Header className="c_Header">
-          <Menu
-            onClick={this.clickItem.bind(this)}
-            className="c_Header_Menu pull-left"
-            selectedKeys={this.getSelectedKeys()}
-            mode="horizontal"
-          >
-            <Menu.Item className="c_MenuItem logo" key="landing">
-              {/* <MediaQuery minWidth={MIN_WIDTH_PC}>
-                <img src="/assets/images/arrow-h.png" alt="Cyber Republic" />
-              </MediaQuery>
-              <MediaQuery maxWidth={MAX_WIDTH_MOBILE}>
-                <img src="/assets/images/arrow-h.png" alt="Cyber Republic"/>
-              </MediaQuery> */}
-              {/* <div className="alpha-tag dsk">ALPHA</div> */}
-            </Menu.Item>
-            <Menu.Item key="post">
-              {I18N.get('navigation.profile')}
-            </Menu.Item>
-          </Menu>
-          <Menu
-            onClick={this.clickItem.bind(this)}
-            className="c_Header_Menu pull-right"
-            selectedKeys={this.getSelectedKeys()}
-            mode="horizontal"
-          >
-            {this.props.isLogin
-              ? (
-                <Menu.Item className="c_MenuItem link" key="profile">
-                  {I18N.get('navigation.profile')}
-                </Menu.Item>
-              ) : (
-                <Menu.Item className="c_MenuItem link" key="login">
-                  {I18N.get('0201')}
-                </Menu.Item>
-              )
-          }
-          </Menu>
-          <div className="clearfix" />
-          {this.renderProfileToast()}
-          {this.renderCompleteProfileModal()}
-        </Header>
-      </Headroom>
+      <Header className="c_Header">
+        <Menu
+          onClick={this.clickItem.bind(this)}
+          className="c_Header_Menu pull-left"
+          selectedKeys={this.getSelectedKeys()}
+          mode="horizontal"
+        >
+          <Menu.Item className="c_MenuItem logo" key="landing">
+            {/* <MediaQuery minWidth={MIN_WIDTH_PC}>
+              <img src="/assets/images/arrow-h.png" alt="Cyber Republic" />
+            </MediaQuery>
+            <MediaQuery maxWidth={MAX_WIDTH_MOBILE}>
+              <img src="/assets/images/arrow-h.png" alt="Cyber Republic"/>
+            </MediaQuery> */}
+            {/* <div className="alpha-tag dsk">ALPHA</div> */}
+          </Menu.Item>
+          <Menu.Item key="post">
+            {I18N.get('navigation.profile')}
+          </Menu.Item>
+        </Menu>
+        <Menu
+          onClick={this.clickItem.bind(this)}
+          className="c_Header_Menu pull-right"
+          selectedKeys={this.getSelectedKeys()}
+          mode="horizontal"
+        >
+          {this.props.isLogin
+            ? (
+              <Menu.Item className="c_MenuItem link" key="profile">
+                {I18N.get('navigation.profile')}
+              </Menu.Item>
+            ) : (
+              <Menu.Item className="c_MenuItem link" key="login">
+                {I18N.get('0201')}
+              </Menu.Item>
+            )
+        }
+        </Menu>
+        <div className="clearfix" />
+        {this.renderProfileToast()}
+        {this.renderCompleteProfileModal()}
+      </Header>
     )
   }
 

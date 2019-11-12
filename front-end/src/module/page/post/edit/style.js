@@ -5,23 +5,14 @@ import styled from 'styled-components'
 import { Button } from 'antd'
 
 export const Container = styled.div`
-  margin: 30px;
-  @media only screen and (max-width: ${breakPoint.mobile}) {
-    width: 100%;
-    padding: 16px;
-    margin: 0;
-  }
 `
 
 export const Title = styled.div`
   font-size: 30px;
   color: ${text.newGray};
-  margin-top: 26px;
   margin-bottom: 8px;
   background-color: ${bg.blue};
   border: 1px solid ${border.lightBlue};
-  /* border-radius: 4px; */
-  padding: 4px 8px;
  `
 
 export const CoverImg = styled.img`

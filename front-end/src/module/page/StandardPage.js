@@ -5,6 +5,7 @@ import { Layout, BackTop } from 'antd'
 import { spring, presets, Motion } from 'react-motion'
 import { StickyContainer } from 'react-sticky'
 import Meta from '@/module/common/Meta'
+import I18N from '@/I18N'
 import Header from '../layout/Header/Container'
 import MobileMenu from './mobile/side_menu/Container'
 
@@ -36,7 +37,7 @@ export default class extends BasePage {
 
     return (
       <StickyContainer>
-        <Layout className="p_standardPage">
+        <Layout className="p-standard-page">
           {this.ord_renderMeta() && <Meta />}
           {this.state.showMobile && (
             <Motion {...mp}>
@@ -51,9 +52,13 @@ export default class extends BasePage {
             </Motion>
           )}
           <Header toggleMobileMenu={this.toggleMobileMenu.bind(this)} />
-          <Layout.Content className="c_Content">
+          <Layout.Content className="c-content">
             {this.ord_renderContent()}
           </Layout.Content>
+
+          <Layout.Footer className="c-footer">
+            {this.ord_renderFooter()}
+          </Layout.Footer>
           <BackTop />
         </Layout>
       </StickyContainer>
@@ -72,7 +77,22 @@ export default class extends BasePage {
   }
 
   ord_renderContent() {
-    return null
+    return (
+      <div className="footer-color-dark">
+        {I18N.get('landing.cr')}
+        :
+        {' '}
+        <a href="mailto:cyberrepublic@elastos.org">cyberrepublic@elastos.org</a>
+      </div>
+    )
+  }
+
+  ord_renderFooter() {
+    return (
+      <div className="footer">
+        © 2019 Weekly
+      </div>
+    )
   }
 
   ord_renderMeta(f = true) {

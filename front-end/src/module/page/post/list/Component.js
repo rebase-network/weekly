@@ -7,7 +7,6 @@ import I18N from '@/I18N'
 import { POST_STATUS } from '@/constant'
 import { logger } from '@/util'
 import StandardPage from '@/module/page/StandardPage'
-import Footer from '@/module/layout/Footer/Container'
 import { breakPoint } from '@/constants/breakPoint'
 
 // import {} from './style'
@@ -72,7 +71,6 @@ export default class extends StandardPage {
             </Col>
           </Row>
         </PostContainer>
-        <Footer />
       </div>
     )
   }
@@ -235,7 +233,7 @@ const PostContainer = styled.div`
   margin: 0 auto;
 
   @media only screen and (max-width: ${breakPoint.xl}) {
-    margin: 0 5%;
+    /* margin: 0 5%; */
   }
 `
 

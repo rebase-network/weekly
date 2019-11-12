@@ -1,7 +1,15 @@
-.p_standardPage {
+.p-standard-page {
   width: 768px;
+  height: 100vh;
   margin: 0 auto;
-  .headroom-wrapper {
-    z-index: 10;
-  }
+}
+
+.c-content {
+  padding: 30px;
+}
+
+.c-footer {
+  text-align: center;
+  background: black;
+  color: white;
 }

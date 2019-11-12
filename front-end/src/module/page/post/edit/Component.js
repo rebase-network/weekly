@@ -2,7 +2,6 @@ import React from 'react'
 import _ from 'lodash'
 import { Spin } from 'antd'
 import MediaQuery from 'react-responsive'
-import Footer from '@/module/layout/Footer/Container'
 import BackLink from '@/module/shared/BackLink/Component'
 import PostForm from '@/module/form/PostForm/Component'
 import I18N from '@/I18N'
@@ -50,7 +49,7 @@ export default class extends StandardPage {
         </div>
       )
     }
-
+    const backLink = `/posts/${_.get(this.props, 'match.params.id')}`
     return (
       <div>
         <Meta
@@ -62,13 +61,13 @@ export default class extends StandardPage {
           <MediaQuery maxWidth={LG_WIDTH}>
             <div>
               <BackLink
-                link={`/posts/${_.get(this.props, 'match.params.id')}`}
+                link={backLink}
                 style={{ position: 'relative', left: 0, marginBottom: 15 }}
               />
             </div>
           </MediaQuery>
           <MediaQuery minWidth={LG_WIDTH + 1}>
-            <BackLink link="/posts" />
+            <BackLink link={backLink} />
           </MediaQuery>
 
           <div>
@@ -84,7 +83,6 @@ export default class extends StandardPage {
             />
           </div>
         </Container>
-        <Footer />
       </div>
     )
   }

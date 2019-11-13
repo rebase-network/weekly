@@ -3,7 +3,7 @@ import * as _ from 'lodash'
 import { constant } from '../constant'
 import { validate, mail, user as userUtil, logger } from '../utility'
 
-const BASE_FIELDS = ['title', 'type', 'abstract', 'goal', 'motivation', 'relevance', 'budget', 'plan']
+const BASE_FIELDS = ['title', 'desc']
 
 export default class extends Base {
   private model: any

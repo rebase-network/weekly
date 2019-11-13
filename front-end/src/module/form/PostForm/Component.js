@@ -6,6 +6,7 @@ import I18N from '@/I18N'
 import { ABSTRACT_MAX_WORDS } from '@/constant'
 import CircularProgressbar from '@/module/common/CircularProgressbar'
 import CodeMirrorEditor from '@/module/common/CodeMirrorEditor'
+import MDEditor from '@/module/common/MDEditor'
 
 import {
   Container,
@@ -71,13 +72,12 @@ class C extends BaseComponent {
       rules,
       initialValue: initialValues[id],
     })(
-      <CodeMirrorEditor
-        callback={this.onTextareaChange}
-        content={initialValues[id]}
-        activeKey={id}
-        name={id}
-      />
+      <MDEditor onTextChange={this.onTextChange} />
     )
+  }
+
+  onTextChange = ({html, text}) => {
+    console.log('onTextChange', html, text)
   }
 
   ord_render() {

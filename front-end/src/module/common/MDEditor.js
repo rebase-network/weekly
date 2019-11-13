@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom'
 import MdEditor from 'react-markdown-editor-lite'
 import MarkdownIt from 'markdown-it'
 
-const MOCK_DATA = "Hello.\n\n * This is markdown.\n * It is fun\n * Love it or leave it."
 export default class Demo extends React.Component {
   mdParser = null
 
@@ -14,7 +13,6 @@ export default class Demo extends React.Component {
   }
 
   handleEditorChange = ({html, text}) => {
-    console.log('handleEditorChange', html, text)
     const { onChange, onTextChange } = this.props
     if (onChange) onChange(text)
     if (onTextChange) onTextChange({html, text})

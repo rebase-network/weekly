@@ -21,6 +21,8 @@ import SocialShareButtons from '@/module/common/SocialShareButtons'
 import MarkdownPreview from '@/module/common/MarkdownPreview'
 import TagsContainer from '../common/tags/Container'
 import PopoverProfile from '@/module/common/PopoverProfile'
+import htmlToImage from 'html-to-image'
+
 import {
   Container,
   Title,
@@ -29,19 +31,6 @@ import {
 } from './style'
 
 export default class extends StandardPage {
-  constructor(props) {
-    super(props)
-
-    // we use the props from the redux store if its retained
-    this.state = {
-      isDropdownActionOpen: false,
-      showMobile: false,
-      showForm: false,
-      needsInfoVisible: false,
-      proposeLoading: false
-    }
-  }
-
   componentDidMount() {
     super.componentDidMount()
     this.refetch(true)
@@ -97,23 +86,32 @@ export default class extends StandardPage {
     )
   }
 
+  generateImg() {
+    const node = document.getElementById('post-detail')
+    console.log('node: ', node)
+    htmlToImage.toPng(node)
+    .then(function(dataUrl) {
+      const img = new Image()
+      img.src = dataUrl
+      document.body.appendChild(img)
+    })
+    .catch(function (error) {
+      console.error('oops, something went wrong!', error)
+    })
+  }
+
   renderDetail() {
     const { detail } = this.props
-    // const metaNode = this.renderMetaNode()
     const titleNode = this.renderTitleNode()
     const ownerActionsNode = this.renderOwnerActionsNode()
-    // const labelNode = this.renderLabelNode()
-    // const tagsNode = this.renderTagsNode()
 
     return (
       <div>
-        {/* {metaNode} */}
-        {titleNode}
+        <div id="post-detail">
+          {titleNode}
+          <MarkdownPreview content={detail.desc || ''} />
+        </div>
         {ownerActionsNode}
-        {/* <div style={{ margin: '14px 0' }}>{labelNode}</div>
-        <div>{tagsNode}</div> */}
-
-        <MarkdownPreview content={detail.desc || ''} />
       </div>
     )
   }
@@ -133,18 +131,23 @@ export default class extends StandardPage {
   }
 
   renderOwnerActionsNode() {
-    const { detail, currentUserId, isAdmin } = this.props
-    const isOwner = currentUserId === _.get(detail, 'createdBy._id') || isAdmin
-    const res = isOwner && (
-      <StyledButton
-        type="ebp"
-        className="cr-btn cr-btn-default"
-        onClick={this.goEdit}
-      >
-        {I18N.get('post.btnText.edit')}
-      </StyledButton>
+    const { detail, currentUserId } = this.props
+    const isOwner = currentUserId === _.get(detail, 'createdBy._id')
+    if (!isOwner) return null
+    return (
+      <div>
+        <StyledButton
+          onClick={this.goEdit}
+        >
+          {I18N.get('post.btnText.edit')}
+        </StyledButton>
+        <StyledButton
+          onClick={this.generateImg}
+        >
+          {I18N.get('post.btnText.generateImg')}
+        </StyledButton>
+      </div>
     )
-    return res
   }
 
   // renderCommentNode() {
@@ -178,13 +181,6 @@ export default class extends StandardPage {
   goEdit = () => {
     const id = _.get(this.props, 'match.params.id')
     this.props.history.push(`/posts/${id}/edit`)
-  }
-
-  showDropdownActions = () => {
-    const { isDropdownActionOpen } = this.state
-    this.setState({
-      isDropdownActionOpen: !isDropdownActionOpen
-    })
   }
 
   refetch = async incViewsNum => {

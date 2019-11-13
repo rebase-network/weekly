@@ -49,5 +49,6 @@ export default {
   btnText: {
     edit: '编辑',
     add: '添加新文章',
+    generateImg: '生成图片',
   }
 }

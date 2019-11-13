@@ -3,17 +3,9 @@ import _ from 'lodash'
 import { Form, Input, Button, Row, Tabs, Radio } from 'antd'
 import BaseComponent from '@/model/BaseComponent'
 import I18N from '@/I18N'
-import { ABSTRACT_MAX_WORDS } from '@/constant'
-import CircularProgressbar from '@/module/common/CircularProgressbar'
-import CodeMirrorEditor from '@/module/common/CodeMirrorEditor'
 import MDEditor from '@/module/common/MDEditor'
 
-import {
-  Container,
-  Note,
-  TabText,
-  CirContainer
-} from './style'
+import { Container } from './style'
 
 const FormItem = Form.Item
 
@@ -72,12 +64,8 @@ class C extends BaseComponent {
       rules,
       initialValue: initialValues[id],
     })(
-      <MDEditor onTextChange={this.onTextChange} />
+      <MDEditor />
     )
-  }
-
-  onTextChange = ({html, text}) => {
-    console.log('onTextChange', html, text)
   }
 
   ord_render() {
@@ -86,16 +74,12 @@ class C extends BaseComponent {
         <Form onSubmit={this.handleSubmit}>
           <FormItem
             label={`${I18N.get('post.form.fields.title')} *`}
-            // labelCol={{span: 23}}
-            // wrapperCol={{span: 18}}
             colon={false}
             >
             {this.getTitleInput()}
           </FormItem>
           <FormItem
             label={`${I18N.get('post.form.fields.desc')} *`}
-            // labelCol={{span: 2}}
-            // wrapperCol={{span: 18}}
             colon={false}
           >
             {this.getTextarea('desc')}

@@ -49,5 +49,6 @@ export default {
   btnText: {
     edit: 'Edit',
     add: 'Add',
+    generateImg: 'Generate Image',
   }
 }

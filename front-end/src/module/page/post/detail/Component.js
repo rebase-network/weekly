@@ -28,6 +28,7 @@ import {
   Title,
   Detail,
   StyledButton,
+  BtnGroup,
 } from './style'
 
 export default class extends StandardPage {
@@ -142,7 +143,7 @@ export default class extends StandardPage {
     const isOwner = currentUserId === _.get(detail, 'createdBy._id')
     if (!isOwner) return null
     return (
-      <div>
+      <BtnGroup>
         <StyledButton
           onClick={this.goEdit}
         >
@@ -153,7 +154,7 @@ export default class extends StandardPage {
         >
           {I18N.get('post.btnText.generateImg')}
         </StyledButton>
-      </div>
+      </BtnGroup>
     )
   }
 

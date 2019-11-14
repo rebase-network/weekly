@@ -83,7 +83,6 @@ const Wrapper = styled.div`
       display: block;
       position: relative;
       top: 0.33em;
-      border-bottom: 1px solid rgba(128, 128, 128, 0.33);
     }
   }
 

@@ -4,13 +4,12 @@ import {
   Row,
   Col,
   Spin,
-  Input,
+  Modal,
   Button,
 } from 'antd'
-import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
-import moment from 'moment/moment'
 // import Comments from '@/module/common/comments/Container'
+import htmlToImage from 'html-to-image'
 import BackLink from '@/module/shared/BackLink/Component'
 import I18N from '@/I18N'
 import { LG_WIDTH } from '@/config/constant'
@@ -19,9 +18,6 @@ import StandardPage from '../../StandardPage'
 import Meta from '@/module/common/Meta'
 import SocialShareButtons from '@/module/common/SocialShareButtons'
 import MarkdownPreview from '@/module/common/MarkdownPreview'
-import TagsContainer from '../common/tags/Container'
-import PopoverProfile from '@/module/common/PopoverProfile'
-import htmlToImage from 'html-to-image'
 
 import {
   Container,
@@ -39,6 +35,43 @@ export default class extends StandardPage {
 
   componentWillUnmount() {
     this.props.resetDetail()
+  }
+
+  state = { visible: false };
+
+  showModal = () => {
+    this.setState({
+      visible: true,
+    })
+  }
+
+  handleOk = e => {
+    this.generateImg()
+  };
+
+  handleCancel = e => {
+    this.setState({
+      visible: false,
+    })
+  };
+
+  renderModal() {
+    return (
+      <div>
+        <Modal
+          title={I18N.get('post.btnText.generateImg')}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+          visible={this.state.visible}
+          bodyStyle={{ minHeight: 100 }}
+        >
+          <div>点击OK按钮可以生成图片，成功后可以点击右键下载</div>
+          <div id="rendered-img">
+            {this.state.img}
+          </div>
+        </Modal>
+      </div>
+    )
   }
 
   ord_renderContent() {
@@ -82,14 +115,15 @@ export default class extends StandardPage {
               {/* <div style={{ marginTop: 60 }}>{commentNode}</div> */}
             </Col>
           </Row>
+          {/* <div id="rendered-img" /> */}
         </Container>
+        {this.renderModal()}
       </div>
     )
   }
 
-  generateImg() {
-    const node = document.getElementById('post-detail')
-    console.log('node: ', node)
+  generateImg = async() => {
+    const srcNode = document.getElementById('post-detail')
     const options = {
       // width: 420,
       style: {
@@ -98,15 +132,16 @@ export default class extends StandardPage {
         fontSize: '20px'
       }
     }
-    htmlToImage.toPng(node, options)
-    .then(function(dataUrl) {
+    try {
+      const dataUrl = await htmlToImage.toPng(srcNode, options)
+      const targetNode = document.getElementById('rendered-img')
       const img = new Image()
       img.src = dataUrl
-      document.body.appendChild(img)
-    })
-    .catch(function (error) {
+      targetNode.innerHTML = null
+      targetNode.appendChild(img)
+    } catch (error) {
       console.error('oops, something went wrong!', error)
-    })
+    }
   }
 
   renderDetail() {
@@ -150,7 +185,7 @@ export default class extends StandardPage {
           {I18N.get('post.btnText.edit')}
         </StyledButton>
         <StyledButton
-          onClick={this.generateImg}
+          onClick={this.showModal}
         >
           {I18N.get('post.btnText.generateImg')}
         </StyledButton>

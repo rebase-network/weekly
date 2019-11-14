@@ -8,7 +8,7 @@ export const Container = styled.div`
 `
 
 export const Detail = styled.div`
-  width: 500px;
+  width: 480px;
   padding: 20px;
 `
 

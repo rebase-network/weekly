@@ -32,7 +32,6 @@ export default {
     }
   },
   modal: {
-    addTagComment: 'Add Comment',
     confirm: 'Confirm',
     cancel: 'Cancel',
   },

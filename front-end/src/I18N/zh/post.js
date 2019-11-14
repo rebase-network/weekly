@@ -32,7 +32,6 @@ export default {
     }
   },
   modal: {
-    addTagComment: '添加评论',
     confirm: '确定',
     cancel: '取消',
   },
@@ -50,5 +49,5 @@ export default {
     edit: '编辑',
     add: '添加新文章',
     generateImg: '生成图片',
-  }
+  },
 }

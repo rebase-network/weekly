@@ -7,6 +7,11 @@ import { gap } from '@/constants/variable'
 export const Container = styled.div`
 `
 
+export const Detail = styled.div`
+  width: 500px;
+  padding: 20px;
+`
+
 export const Title = styled.div`
   font-size: 30px;
   color: ${text.newGray};

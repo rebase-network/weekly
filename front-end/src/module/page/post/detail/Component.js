@@ -26,7 +26,7 @@ import htmlToImage from 'html-to-image'
 import {
   Container,
   Title,
-  DescLabel,
+  Detail,
   StyledButton,
 } from './style'
 
@@ -51,7 +51,7 @@ export default class extends StandardPage {
     }
     const detailNode = this.renderDetail()
     // const commentNode = this.renderCommentNode()
-    const socialShareButtonsNode = this.renderSocialShareButtonsNode()
+    // const socialShareButtonsNode = this.renderSocialShareButtonsNode()
 
     return (
       <div>
@@ -77,7 +77,7 @@ export default class extends StandardPage {
           <Row gutter={24}>
             <Col span={24}>
               {detailNode}
-              {socialShareButtonsNode}
+              {/* {socialShareButtonsNode} */}
               {/* <div style={{ marginTop: 60 }}>{commentNode}</div> */}
             </Col>
           </Row>
@@ -89,7 +89,15 @@ export default class extends StandardPage {
   generateImg() {
     const node = document.getElementById('post-detail')
     console.log('node: ', node)
-    htmlToImage.toPng(node)
+    const options = {
+      // width: 420,
+      style: {
+      //   width: '420px',
+      //   height: 'auto'
+        fontSize: '20px'
+      }
+    }
+    htmlToImage.toPng(node, options)
     .then(function(dataUrl) {
       const img = new Image()
       img.src = dataUrl
@@ -104,13 +112,12 @@ export default class extends StandardPage {
     const { detail } = this.props
     const titleNode = this.renderTitleNode()
     const ownerActionsNode = this.renderOwnerActionsNode()
-
     return (
       <div>
-        <div id="post-detail">
+        <Detail id="post-detail">
           {titleNode}
           <MarkdownPreview content={detail.desc || ''} />
-        </div>
+        </Detail>
         {ownerActionsNode}
       </div>
     )

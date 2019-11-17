@@ -27,52 +27,52 @@ export default [
     * Login/Register
     ********************************************************************************
       */
-  {
-    path: '/login',
-    page: LoginPage,
-  },
-  {
-    path: '/register',
-    page: RegisterPage,
-  },
-  {
-    path: '/forgot-password',
-    page: ForgotPasswordPage,
-  },
-  {
-    path: '/reset-password',
-    page: ResetPasswordPage,
-  },
+  // {
+  //   path: '/login',
+  //   page: LoginPage,
+  // },
+  // {
+  //   path: '/register',
+  //   page: RegisterPage,
+  // },
+  // {
+  //   path: '/forgot-password',
+  //   page: ForgotPasswordPage,
+  // },
+  // {
+  //   path: '/reset-password',
+  //   page: ResetPasswordPage,
+  // },
   /*
      ********************************************************************************
      * Post page
      ********************************************************************************
      */
-  {
-    path: '/posts',
-    page: PostListPage,
-  },
-  {
-    path: '/posts/create',
-    page: PostCreatePage,
-  },
-  {
-    path: '/posts/:id/edit',
-    page: PostEditPage,
-  },
-  {
-    path: '/posts/:id',
-    page: PostDetailPage,
-  },
+  // {
+  //   path: '/posts',
+  //   page: PostListPage,
+  // },
+  // {
+  //   path: '/posts/create',
+  //   page: PostCreatePage,
+  // },
+  // {
+  //   path: '/posts/:id/edit',
+  //   page: PostEditPage,
+  // },
+  // {
+  //   path: '/posts/:id',
+  //   page: PostDetailPage,
+  // },
   /*
     ********************************************************************************
     * Profile page
     ********************************************************************************
       */
-  {
-    path: '/profile',
-    page: ProfileInfoPage,
-  },
+  // {
+  //   path: '/profile',
+  //   page: ProfileInfoPage,
+  // },
 
   // Other
   {

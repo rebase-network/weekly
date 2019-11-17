@@ -154,7 +154,8 @@ export default class extends BaseComponent {
   ord_render() {
     return (
       <Header className="c-header">
-        <Menu
+        Markdown -> 图片
+        {/* <Menu
           theme="dark"
           onClick={this.clickItem}
           className="c-header_Menu pull-left"
@@ -162,14 +163,14 @@ export default class extends BaseComponent {
           mode="horizontal"
         >
           <Menu.Item className="c_MenuItem logo" key="home">
-            WEEKLY
-            {/* <MediaQuery minWidth={MIN_WIDTH_PC}>
+            Convert Markdown to Image
+            <MediaQuery minWidth={MIN_WIDTH_PC}>
               <img src="/assets/images/arrow-h.png" alt="Weekly" />
             </MediaQuery>
             <MediaQuery maxWidth={MAX_WIDTH_MOBILE}>
               <img src="/assets/images/arrow-h.png" alt="Weekly"/>
-            </MediaQuery> */}
-            {/* <div className="alpha-tag dsk">ALPHA</div> */}
+            </MediaQuery>
+            <div className="alpha-tag dsk">ALPHA</div>
           </Menu.Item>
           <Menu.Item key="posts/create">
             {I18N.get('post.title.add')}
@@ -198,7 +199,7 @@ export default class extends BaseComponent {
         </Menu>
         <div className="clearfix" />
         {this.renderProfileToast()}
-        {this.renderCompleteProfileModal()}
+        {this.renderCompleteProfileModal()} */}
       </Header>
     )
   }

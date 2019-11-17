@@ -32,12 +32,12 @@ export default class extends StandardPage {
     return (
       <div>
         <Meta
-          title="Add Post Detail"
+          title="Home"
           url={this.props.location.pathname}
         />
 
         <Container className="c_PostDetail">
-        <MediaQuery maxWidth={LG_WIDTH}>
+          {/* <MediaQuery maxWidth={LG_WIDTH}>
             <div>
               <BackLink
                 link="/"
@@ -47,7 +47,7 @@ export default class extends StandardPage {
           </MediaQuery>
           <MediaQuery minWidth={LG_WIDTH + 1}>
             <BackLink link="/" />
-          </MediaQuery>
+          </MediaQuery> */}
 
           {/* <h2 className="komu-a cr-title-with-icon">
             {I18N.get('post.title.add')}

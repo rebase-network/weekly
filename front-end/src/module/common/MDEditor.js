@@ -81,6 +81,8 @@ export default class Demo extends React.Component {
     return (
       <div style={{height: 500}}>
         <MdEditor
+          hidePreview={true}
+          hideToggle={true}
           value={value}
           renderHTML={(text) => this.mdParser.render(text)}
           ref={node => this.mdEditor = node}

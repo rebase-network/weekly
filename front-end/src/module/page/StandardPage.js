@@ -56,10 +56,10 @@ export default class extends BasePage {
             {this.ord_renderContent()}
           </Layout.Content>
 
-          <Layout.Footer className="c-footer">
+          {/* <Layout.Footer className="c-footer">
             {this.ord_renderFooter()}
-          </Layout.Footer>
-          <BackTop />
+          </Layout.Footer> */}
+          {/* <BackTop /> */}
         </Layout>
       </StickyContainer>
     )

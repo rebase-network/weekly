@@ -56,9 +56,9 @@ export default Base.setRouter([
     router : unsubscribe,
     method : 'post'
   },
-  {
-    path: '/:id/delete',
-    router: del,
-    method: 'post',
-  },
+  // {
+  //   path: '/:id/delete',
+  //   router: del,
+  //   method: 'post',
+  // },
 ])

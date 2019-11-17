@@ -71,7 +71,7 @@ export default class extends BaseService {
 
       this.dispatch(this.selfRedux.actions.my_posts_loading_update(false))
       this.dispatch(this.selfRedux.actions.my_posts_reset())
-      this.dispatch(this.selfRedux.actions.my_posts_total_update(result.total))
+      // this.dispatch(this.selfRedux.actions.my_posts_total_update(result.total))
       this.dispatch(this.selfRedux.actions.my_posts_update(_.values(result.list)))
     } catch (e) {
       // Do nothing

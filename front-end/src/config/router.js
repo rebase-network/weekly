@@ -16,11 +16,11 @@ import NotFound from '@/module/page/error/NotFound'
 export default [
   {
     path: '/',
-    page: PostListPage,
+    page: PostCreatePage,
   },
   {
     path: '/home',
-    page: PostListPage,
+    page: PostCreatePage,
   },
   /*
     ********************************************************************************

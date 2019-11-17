@@ -6,3 +6,8 @@
 @import "./layout";
 
 @import "./mobile";
+
+.rc-md-navigation .button-wrap .button[title="image"] {
+  display: none;
+
+}

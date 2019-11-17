@@ -49,9 +49,9 @@ export default class extends StandardPage {
             <BackLink link="/" />
           </MediaQuery>
 
-          <h2 className="komu-a cr-title-with-icon">
+          {/* <h2 className="komu-a cr-title-with-icon">
             {I18N.get('post.title.add')}
-          </h2>
+          </h2> */}
           <PostForm
             lang={this.props.lang}
             onSubmit={this.onSubmit}

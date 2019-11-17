@@ -4636,6 +4636,13 @@ elliptic@^6.0.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.0"
 
+emoji-mart@^2.11.1:
+  version "2.11.1"
+  resolved "https://registry.npm.taobao.org/emoji-mart/download/emoji-mart-2.11.1.tgz#fc9330b513803c17b98c9ad289c12ab61ff05f8f"
+  integrity sha1-/JMwtROAPBe5jJrSicEqth/wX48=
+  dependencies:
+    prop-types "^15.6.0"
+
 emoji-regex@^7.0.1, emoji-regex@^7.0.2:
   version "7.0.3"
   resolved "https://registry.npm.taobao.org/emoji-regex/download/emoji-regex-7.0.3.tgz#933a04052860c85e83c122479c4748a8e4c72156"
@@ -6042,6 +6049,11 @@ he@1.2.x, he@^1.2.0:
   version "1.2.0"
   resolved "https://registry.npm.taobao.org/he/download/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
   integrity sha1-hK5l+n6vsWX922FWauFLrwVmTw8=
+
+highlight.js@^9.16.2:
+  version "9.16.2"
+  resolved "https://registry.npm.taobao.org/highlight.js/download/highlight.js-9.16.2.tgz#68368d039ffe1c6211bcc07e483daf95de3e403e"
+  integrity sha1-aDaNA5/+HGIRvMB+SD2vld4+QD4=
 
 history@^4.7.2:
   version "4.10.1"
@@ -10613,10 +10625,11 @@ react-lifecycles-compat@^3.0.0, react-lifecycles-compat@^3.0.2, react-lifecycles
   resolved "https://registry.npm.taobao.org/react-lifecycles-compat/download/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha1-TxonOv38jzSIqMUWv9p4+HI1I2I=
 
-react-markdown-editor-lite@^0.4.8:
+react-markdown-editor-lite@luckyyang/react-markdown-editor-lite:
   version "0.4.8"
-  resolved "https://registry.npm.taobao.org/react-markdown-editor-lite/download/react-markdown-editor-lite-0.4.8.tgz#f3a7e18c773138fea5bdd45e71b5a3dade37c8c0"
-  integrity sha1-86fhjHcxOP6lvdRecbWj2t43yMA=
+  resolved "https://codeload.github.com/luckyyang/react-markdown-editor-lite/tar.gz/0e763a812cf0a01674df77fcebee5fc9efb80110"
+  dependencies:
+    emoji-mart "^2.11.1"
 
 react-motion@^0.5.2:
   version "0.5.2"

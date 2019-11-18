@@ -45,7 +45,7 @@
     "react-dom": "^16.11.0",
     "react-flags": "^0.1.13",
     "react-helmet": "^5.2.0",
-    "react-markdown-editor-lite": "luckyyang/react-markdown-editor-lite",
+    "react-markdown-editor-lite": "luckyyang/react-markdown-editor-lite#afd1837964",
     "react-motion": "^0.5.2",
     "react-redux": "^5.0.6",
     "react-responsive": "^8.0.1",

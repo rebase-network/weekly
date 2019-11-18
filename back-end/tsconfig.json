@@ -26,7 +26,7 @@
   "include": [
     "index.ts",
     "src/**/*.ts"
-  ],
+, "src/router/index.js"  ],
   "exclude": [
     "src/**/*.spec.ts",
     "src/assets/**",

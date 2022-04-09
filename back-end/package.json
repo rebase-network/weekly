@@ -38,7 +38,7 @@
     "http-status": "1.0.1",
     "lodash": ">=4.17.13",
     "mailgun-js": "^0.18.0",
-    "moment": "^2.22.1",
+    "moment": "^2.29.2",
     "mongoose": "^5.7.5",
     "mongoose-plugin-autoinc": "^1.1.9",
     "morgan": "^1.9.1",
